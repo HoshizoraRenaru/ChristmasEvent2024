@@ -1,0 +1,10 @@
+name: ChristmasEvent2024
+version: '${version}'
+main: org.hoshizora.christmasevent2024.Main
+api-version: '1.20'
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.23
+commands:
+  dev:
+    description: "Get SoulOverseer[Christmas 20024] dev command."
+    usage: "/dev SoulOverseer"

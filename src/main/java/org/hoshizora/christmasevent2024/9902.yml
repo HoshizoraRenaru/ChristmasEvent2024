@@ -1,0 +1,446 @@
+# The full documentation is at https://dev.bukkit.org/projects/random_box/pages/main/documentation
+# This is the 1.13+ version of the default box
+
+boxItem: PURPLE_SHULKER_BOX
+
+boxName: '&e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+
+lore:
+  - '&l&dM&9e&dr&9r&dy &9c&dh&9r&di&9s&dt&9m&da&9s!'
+  - '&f행복한 크리스마스 되세요!'
+  - '&7──────────────────'
+  - 'items 0 &7%ordinal%. &ex%amount% %name%'
+  - '&7──────────────────'
+  - '&d크&9리&d스&9마&d스 &f박&9스'
+
+addGlow: false
+
+# CustomModelData tag, which will be added to the box item.
+# This setting will be ignored on versions lower than 1.14.
+# You can remove this setting, so no data will be set.
+customModelData: 123
+
+# Other box item settings:
+# - texture (base64 texture for player heads)
+# - nbtTag (arbitrary NBT tag, as used in /give command)
+# See https://minecraft.gamepedia.com/Tutorials/Command_NBT_tags#Items
+
+unstackable: false
+
+checkPermission: false
+
+openWhenClicked: true
+
+itemsToSelectCount: 3
+
+# List of limits: each limit specifies how frequently players can open this box.
+# You can set different limits for different players, detected by permission.
+limits:
+  # Interval specifies minimum time between box openings.
+  # Available time units: s (sec), m (min), h (hours), d (days).
+  - interval: 1m
+    # Message that is sent when player tries to open a box too fast.
+    # You can localize time units in the placeholder, for example (Russian): %remains[с.,м.,ч.,д.]%
+    message: '&cYou can open this box only after %remains[s.,m.,h.,day(s)]%!'
+    permissions:
+      # Permission that is required in order for this limit to work.
+      # If player does not have this permission, limit will not be checked.
+      # If not specified, the limit will be checked for any player.
+      check: 'some.permission.to.check'
+      # Permission for bypassing the limit.
+      # If not specified, the limit can't be bypassed even by OPs.
+      bypass: 'some.permission.to.bypass'
+
+gui:
+  enabled: true
+  rolling:
+    - {period: 1, iterations: 50}
+    - {period: 2, iterations: 20}
+    - {period: 3, iterations: 10}
+    - {period: 4, iterations: 5}
+  window:
+    type: CHEST
+    format:
+      - '@@@###@@@'
+      - 'abcDEFghi'
+      - '@@@###@@@'
+    fillers:
+      '@':
+        item: {id: WHITE_STAINED_GLASS_PANE, period: 20}
+        onStop:
+          item: {id: AIR}
+      '#':
+        animated:
+          - {id: PURPLE_STAINED_GLASS_PANE, period: 10}
+          - {id: BLUE_STAINED_GLASS_PANE, period: 10}
+
+effects:
+  open:
+    firework:
+      type: BALL_LARGE
+      colors: ['#FF0000', '#00FF00', 'BLUE']
+      fadeColors: ['GRAY', 'BLACK']
+      flicker: true
+      trail: false
+      power: 3
+    sound:
+      sound: BLOCK_CHEST_OPEN
+      volume: 1.0
+      pitch: 1.0
+    broadcast: '&f%player%님이 &e&l&kL &l&c크&2리&c스&2마&c스 &f랜&a덤&f박&a스 &e&l&kL를 열고 있습니다!'
+  move:
+    sound: {sound: UI_BUTTON_CLICK}
+  drop:
+    sound: {sound: BLOCK_ANVIL_LAND}
+    firework:
+      type: STAR
+      colors: ['WHITE']
+  close:
+    sound: {sound: BLOCK_CHEST_CLOSE}
+
+items:
+  item1:
+    item: NETHERITE_SWORD
+    data: 0
+    amount: 1
+    name: '&2&k&lL &c&l크&2&l리&c&l스&2&l마&c&l스 &c&l파&c&l괴&c&l자 &2&k&lL'
+    lore:
+      - '&f이 아이템은 &c&k&lL &l&c크&2리&c스&2마&c스 &f랜&a덤&f박&a스 &c&k&lL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+      - '&f2023 Christmas Limited Edition'
+    # CustomModelData tag, which will be added to the dropped item.
+    # This setting will be ignored on versions lower than 1.14.
+    # You can remove this setting, so no data will be set.
+    customModelData: 123
+    enchants:
+      sharpness: 7
+      unbreaking: 5
+      fire: 3
+      mending: 1
+      sweeping: 3
+      looting: 3
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '&f플레이어 &6%player%님이 &2&k&lL &c&l크&2&l리&c&l스&2&l마&c&l스 &c&l파&c&l괴&c&l자 &2&k&lL &f를 획득하셨습니다!!!'
+    chance: 3
+
+
+  item2:
+    item: REDSTONE_TORCH
+    amount: 1
+    name: '&c&k&lL &c루돌프&f의 &c빨간 코 &c&k&lL'
+    lore:
+      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+    enchants:
+      knockback: 3
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '플레이어 &6%player%님이 &c루돌프&f의 &c빨간 코 &f를 획득하셨습니다!!!'
+    chance: 10
+
+
+  item3:
+    item: totem_of_undying
+    amount: 1
+    name: '&c&k&lL &c크&2리&c스&2마&c스 &f불&a사&f의 &a토&f템 &c&k&lL'
+    lore:
+      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '플레이어 &6%player%님이 &c&k&lL &c크&2리&c스&2마&c스 &f불&a사&f의 &a토&f템 &c&k&lL &f을 획득하셨습니다!!!'
+    chance: 8
+
+
+  item4:
+    item: BOW
+    amount: 1
+    name: '&c&k&lL &c크&2리&c스&2마&c스 &f활 &c&k&lL'
+    lore:
+      - '&l&f이 아이템은 &c크&2리&c스&2마&c스 &c한정판&f입니다!'
+    enchants:
+      power: 6
+      unbreaking: 3
+      mending: 1
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '플레이어 &6%player%님이 &c&k&lL &c크&2리&c스&2마&c스 &f활 &c&k&lL &f을 획득하셨습니다!!!'
+    chance: 10
+
+
+  item5:
+    item: GOLDEN_APPLE
+    name: '&c&k&lL &l&c크&2리&c스&2마&c스&2의 &f얼&a어&f붙&a은 &f사&a과 &c&k&lL'
+    lore:
+      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+    dontAssignName: true
+    amount: 1-8
+    chance: 7
+
+
+  item6:
+    item: IRON_SWORD
+    amount: 1
+    name: '&l&c크&2리&c스&2마&c스 &f철 검'
+    lore:
+      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+    enchants:
+      sharpness: 5
+      unbreaking: 3
+      knockback: 1
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '플레이어 &6%player%님이 &l&c크&2리&c스&2마&c스 &f철 검 &f을 획득하셨습니다!!!'
+    chance: 10
+
+
+  item7:
+    commands:
+      command1:
+        line: 'xp add %player% 10 levels'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXPERIENCE_BOTTLE
+    name: '&d크&9리&d스&9마&d스 &f경&9험&f치&f(&910&f레&9벨&f)'
+    amount: 10
+    chance: 30
+
+
+
+  item10:
+    box: 9902
+    name: '&d크&9리&d스&9마&d스 &f보&9너&f스&9상&f자'
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    chance: 2
+
+
+  item11:
+    item: GUNPOWDER
+    name: '&f화약'
+    dontAssignName: true
+    amount: 5-20
+    chance: 5
+  item12:
+    item: DIAMOND
+    name: '&f다이아몬드'
+    dontAssignName: true
+    amount: 1-5
+    chance: 7
+
+
+  item13:
+    item: IRON_INGOT
+    name: '&f철 주괴'
+    dontAssignName: true
+    amount: 1-12
+    chance: 10
+
+
+  item14:
+    item: GOLD_INGOT
+    name: '&f금 주괴'
+    dontAssignName: true
+    amount: 1-10
+    chance: 8
+
+
+  item15:
+    item: ANCIENT_DEBRIS
+    name: '&f고대 잔해'
+    dontAssignName: true
+    amount: 1-3
+    chance: 3
+
+
+
+  item6:
+    item: IRON_SWORD
+    amount: 1
+    name: '&l&c크&2리&c스&2마&c스 &f철 검'
+    lore:
+      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+    enchants:
+      sharpness: 5
+      unbreaking: 3
+      knockback: 1
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '플레이어 &6%player%님이 &l&c크&2리&c스&2마&c스 &f철 검 &f을 획득하셨습니다!!!'
+    chance: 10
+
+
+
+  item16:
+    item: paper
+    amount: 1
+    name: '&f&k&lL &b&l영혼 &9&l지휘봉 &c&o&n(교환권)&r &f&k&lL'
+    lore:
+      - '&f크리스마스 이벤트 상인으로부터'
+      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
+      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    enchants:
+      protection: 5
+      mending: 1
+      unbreaking: 3
+      thorns: 2
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
+      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &f&l망토 &9&k&lL &f를 획득하셨습니다!!!'
+    chance: 2
+
+
+
+  item17:
+    item: netherite_leggings
+    amount: 1
+    name: '&9&k&lL &b&l눈의 여왕의 &f&l스타킹 &9&k&lL'
+    lore:
+      - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    enchants:
+      protection: 5
+      mending: 1
+      unbreaking: 3
+      thorns: 1
+      swift_sneak: 2
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
+      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &f&l스타킹 &9&k&lL &f을 획득하셨습니다!!!'
+    chance: 2
+
+
+
+  item18:
+    item: netherite_boots
+    amount: 1
+    name: '&9&k&lL &b&l눈의 여왕의 &6&l구두 &9&k&lL'
+    lore:
+      - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    enchants:
+      protection: 5
+      mending: 1
+      unbreaking: 3
+      feather_falling: 5
+      frost_walker: 1
+      thorns: 1
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
+      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &6&l구두 &9&k&lL &f을 획득하셨습니다!!!'
+    chance: 2
+
+
+
+  item19:
+    item: netherite_helmet
+    amount: 1
+    name: '&9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 👑 &9&k&lL'
+    lore:
+      - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    enchants:
+      protection: 7
+      mending: 1
+      unbreaking: 3
+      thorns: 2
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'BLUE', 'WHITE', 'AQUA', 'GOLD' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
+      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 👑 &9&k&lL &f을 획득하셨습니다!!!'
+    chance: 1
+
+
+
+    item20:
+      item: shield
+      amount: 1
+      name: '&9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &9&k&lL'
+      lore:
+        - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+        - '&f에서 드롭되었습니다!'
+        - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+        - '&f2024 Christmas Limited Edition'
+      enchants:
+        mending: 1
+        unbreaking: 4
+        sharpness: 3
+
+      dropEffect:
+        firework:
+          type: BALL_LARGE
+          colors: [ 'WHITE', 'BLUE', 'GREEN' ]
+          fadeColors: [ 'GRAY' ]
+          power: 0
+        sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
+        broadcast: '&6%player%님이 &9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &9&k&lL &f을 획득하셨습니다!!!'
+      chance: 2
+
+    # Other drop item settings:
+    # - nbtTag (arbitrary NBT tag, as used in /give command)
