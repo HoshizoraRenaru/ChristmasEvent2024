@@ -5,7 +5,6 @@ import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -14,34 +13,28 @@ import org.bukkit.event.player.PlayerItemDamageEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
-import kotlin.random.Random
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.util.Vector
+import kotlin.random.Random
 
 class SoulOverseerListener(private val plugin: Main) : Listener {
-    private var skillActive = false
-    private var skillTask: BukkitRunnable? = null
-    private var damageTask: BukkitRunnable? = null
-    private var expTask: BukkitRunnable? = null
-    private var soundTask: BukkitRunnable? = null
+    private val skillActive = mutableMapOf<Player, Boolean>() // 플레이어별 기술 활성화 상태 저장
+    private val skillTasks = mutableMapOf<Player, MutableList<BukkitRunnable>>() // 플레이어별 작업 저장
 
     @EventHandler
     fun onPlayerUse(event: PlayerInteractEvent) {
         val player = event.player
 
-        if (event.action == Action.RIGHT_CLICK_BLOCK && player.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())) {
-            event.isCancelled = true
-            return
-        }
-
         if ((event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK) &&
             player.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())
         ) {
-            if (!skillActive) {
-                activateSkill(player)
-            } else {
+            event.isCancelled = true
+
+            if (skillActive[player] == true) {
                 deactivateSkill(player)
+            } else {
+                activateSkill(player)
             }
         }
 
@@ -61,7 +54,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
     @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
         val player = event.player
-        if (skillActive && event.itemDrop.itemStack.isSimilar(ItemManager.createSoulOverseer())) {
+        if (skillActive[player] == true && event.itemDrop.itemStack.isSimilar(ItemManager.createSoulOverseer())) {
             deactivateSkill(player)
         }
     }
@@ -80,67 +73,62 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         val entity = event.entity
 
         if (damager is Player && entity is LivingEntity) {
-            if (damager.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer()) && skillActive) {
+            if (damager.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer()) && skillActive[damager] == true) {
                 entity.velocity = Vector(0, 0, 0)
             }
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    fun onEntityDamageByEntity(event: EntityDamageByEntityEvent) {
-        val damager = event.damager
+    @EventHandler
+    fun onEntityDeath(event: EntityDeathEvent) {
         val entity = event.entity
+        val killer = entity.killer
 
-        if (damager is Player && entity is LivingEntity) {
-            if (skillActive && damager.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())) {
-                // 소울 바이트 데미지 추가
-                val soulBiteDamage = 3.0
-                event.damage += soulBiteDamage
-
-                // 슬로우 효과 적용
-                entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 20, 1, true, false))
-
-                // 넉백 방지
-                entity.velocity = Vector(0, 0, 0)
-
-                // 경험치 소모
-                if (damager.totalExperience > 0) {
-                    damager.giveExp(-0)
-                } else {
-                    damager.sendMessage("${ChatColor.RED}경험치가 부족합니다!")
-                    deactivateSkill(damager)
-                }
-            }
+        if (killer is Player && skillActive[killer] == true &&
+            killer.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())
+        ) {
+            entity.world.playSound(entity.location, Sound.ENTITY_PLAYER_HURT_FREEZE, 1f, 0.7f)
         }
     }
 
     private fun activateSkill(player: Player) {
-        skillActive = true
+        skillActive[player] = true
         player.sendMessage("${ChatColor.GREEN}소울 바이트 발동됨")
 
-        // 소리 한 번 재생
-        player.world.playSound(player.location, Sound.ITEM_ELYTRA_FLYING, 2f, 0.5f)
+        val tasks = mutableListOf<BukkitRunnable>()
 
-        // 파티클 생성 (2틱 간격)
-        skillTask = object : BukkitRunnable() {
+        // 지속적인 소리 재생
+        val soundTask = object : BukkitRunnable() {
+            override fun run() {
+                player.world.playSound(player.location, Sound.ITEM_ELYTRA_FLYING, 1f, 0.5f)
+            }
+        }.also {
+            it.runTaskTimer(plugin, 0L, 20L) // 1초마다 소리 재생
+            tasks.add(it)
+        }
+
+        // 파티클 생성 (원래 방식 유지)
+        val particleTask = object : BukkitRunnable() {
             override fun run() {
                 spawnParticles(player)
             }
         }.also {
-            it.runTaskTimer(plugin, 0L, 2L)  // 2틱마다 실행
+            it.runTaskTimer(plugin, 0L, 2L) // 2틱마다 실행
+            tasks.add(it)
         }
 
-        // 데미지 및 효과 적용 (1초마다)
-        damageTask = object : BukkitRunnable() {
+        // 주변 적들에게 데미지와 효과 (1초마다)
+        val damageTask = object : BukkitRunnable() {
             override fun run() {
                 applyEffects(player)
             }
         }.also {
-            it.runTaskTimer(plugin, 0L, 20L)  // 20틱(1초)마다 실행
+            it.runTaskTimer(plugin, 0L, 20L) // 20틱(1초)마다 실행
+            tasks.add(it)
         }
 
         // 경험치 소모 (0.1초마다)
-        expTask = object : BukkitRunnable() {
+        val expTask = object : BukkitRunnable() {
             override fun run() {
                 if (player.totalExperience > 0) {
                     player.giveExp(-1)
@@ -150,33 +138,19 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
                 }
             }
         }.also {
-            it.runTaskTimer(plugin, 0L, 2L)  // 2틱(0.1초)마다 실행
+            it.runTaskTimer(plugin, 0L, 2L) // 0.1초마다 실행
+            tasks.add(it)
         }
+
+        skillTasks[player] = tasks
     }
 
     private fun deactivateSkill(player: Player) {
-        skillTask?.cancel()
-        damageTask?.cancel()
-        expTask?.cancel()
-        soundTask?.cancel()
-        skillTask = null
-        damageTask = null
-        expTask = null
-        soundTask = null
-        skillActive = false
+        skillTasks[player]?.forEach { it.cancel() }
+        skillTasks.remove(player)
+
+        skillActive[player] = false
         player.sendMessage("${ChatColor.RED}소울 바이트 중지됨")
-    }
-
-    @EventHandler
-    fun onEntityDeath(event: EntityDeathEvent) {
-        if (skillActive) {
-            val entity = event.entity
-            val killer = entity.killer
-
-            if (killer is Player && killer.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())) {
-                entity.world.playSound(entity.location, Sound.ENTITY_PLAYER_HURT_FREEZE, 1f, 0.7f)
-            }
-        }
     }
 
     private fun applyEffects(player: Player) {
@@ -185,17 +159,15 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
                 val damage = 2.0
                 entity.damage(damage, player)
                 entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 20, 1, true, false))
-
-                // 넉백 방지
-                entity.velocity = Vector(0, 0, 0)  // 넉백을 없애기 위해 속도를 0으로 설정
+                entity.velocity = Vector(0, 0, 0) // 넉백 방지
             }
         }
     }
 
     private fun spawnParticles(player: Player) {
         val radius = 3.0
-        for (angle in 0..360 step 10) {
-            for (y in -1..1 step 1) {
+        for (angle in 0..360 step 10) { // 각도별로 파티클 생성
+            for (y in -1..1 step 1) { // 높이별로 파티클 생성
                 val radians = Math.toRadians(angle.toDouble())
                 val x = radius * Math.cos(radians)
                 val z = radius * Math.sin(radians)
@@ -204,6 +176,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
                 val randomOffsetY = Random.nextDouble(-0.5, 0.5)
                 val randomOffsetZ = Random.nextDouble(-0.5, 0.5)
 
+                // 기본 파란색 REDSTONE 파티클
                 player.world.spawnParticle(
                     org.bukkit.Particle.REDSTONE,
                     player.location.x + x + randomOffsetX,
@@ -213,26 +186,24 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
                     org.bukkit.Particle.DustOptions(org.bukkit.Color.fromRGB(0, 0, 255), 1f)
                 )
 
-                if (angle % 30 == 0) {
-                    player.world.spawnParticle(
-                        org.bukkit.Particle.REDSTONE,
-                        player.location.x + x + randomOffsetX,
-                        player.location.y + y + 1.5 + randomOffsetY,
-                        player.location.z + z + randomOffsetZ,
-                        0,
-                        org.bukkit.Particle.DustOptions(org.bukkit.Color.fromRGB(0, 255, 255), 1f)
-                    )
-                }
+                // 추가: 밝은 청록색 REDSTONE 파티클
+                player.world.spawnParticle(
+                    org.bukkit.Particle.REDSTONE,
+                    player.location.x + x + randomOffsetX,
+                    player.location.y + y + 1.5 + randomOffsetY,
+                    player.location.z + z + randomOffsetZ,
+                    0,
+                    org.bukkit.Particle.DustOptions(org.bukkit.Color.fromRGB(0, 255, 255), 1f)
+                )
 
-                if (angle % 60 == 0) {
-                    player.world.spawnParticle(
-                        org.bukkit.Particle.SNOWBALL,
-                        player.location.x + x + randomOffsetX,
-                        player.location.y + y + 1.5 + randomOffsetY,
-                        player.location.z + z + randomOffsetZ,
-                        0
-                    )
-                }
+                // SNOWBALL 파티클 (각도와 무관하게 생성)
+                player.world.spawnParticle(
+                    org.bukkit.Particle.SNOWBALL,
+                    player.location.x + x + randomOffsetX,
+                    player.location.y + y + 1.5 + randomOffsetY,
+                    player.location.z + z + randomOffsetZ,
+                    1
+                )
             }
         }
     }
