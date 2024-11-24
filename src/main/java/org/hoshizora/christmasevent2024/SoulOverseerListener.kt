@@ -118,14 +118,8 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         skillActive = true
         player.sendMessage("${ChatColor.GREEN}소울 바이트 발동됨")
 
-        // 지속적인 소리 재생
-        soundTask = object : BukkitRunnable() {
-            override fun run() {
-                player.world.playSound(player.location, Sound.ITEM_ELYTRA_FLYING, 1f, 0.5f)
-            }
-        }.also {
-            it.runTaskTimer(plugin, 0L, 20L)  // 1초마다 소리 재생
-        }
+        // 소리 한 번 재생
+        player.world.playSound(player.location, Sound.ITEM_ELYTRA_FLYING, 2f, 0.5f)
 
         // 파티클 생성 (2틱 간격)
         skillTask = object : BukkitRunnable() {
