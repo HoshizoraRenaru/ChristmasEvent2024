@@ -1,6 +1,7 @@
 package org.hoshizora.christmasevent2024
 
 import org.bukkit.ChatColor
+import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -15,6 +16,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import kotlin.random.Random
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.util.Vector
 
 class SoulOverseerListener(private val plugin: Main) : Listener {
@@ -22,6 +24,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
     private var skillTask: BukkitRunnable? = null
     private var damageTask: BukkitRunnable? = null
     private var expTask: BukkitRunnable? = null
+    private var soundTask: BukkitRunnable? = null
 
     @EventHandler
     fun onPlayerUse(event: PlayerInteractEvent) {
@@ -115,6 +118,15 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         skillActive = true
         player.sendMessage("${ChatColor.GREEN}소울 바이트 발동됨")
 
+        // 지속적인 소리 재생
+        soundTask = object : BukkitRunnable() {
+            override fun run() {
+                player.world.playSound(player.location, Sound.ITEM_ELYTRA_FLYING, 1f, 0.5f)
+            }
+        }.also {
+            it.runTaskTimer(plugin, 0L, 20L)  // 1초마다 소리 재생
+        }
+
         // 파티클 생성 (2틱 간격)
         skillTask = object : BukkitRunnable() {
             override fun run() {
@@ -152,11 +164,25 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         skillTask?.cancel()
         damageTask?.cancel()
         expTask?.cancel()
+        soundTask?.cancel()
         skillTask = null
         damageTask = null
         expTask = null
+        soundTask = null
         skillActive = false
         player.sendMessage("${ChatColor.RED}소울 바이트 중지됨")
+    }
+
+    @EventHandler
+    fun onEntityDeath(event: EntityDeathEvent) {
+        if (skillActive) {
+            val entity = event.entity
+            val killer = entity.killer
+
+            if (killer is Player && killer.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())) {
+                entity.world.playSound(entity.location, Sound.ENTITY_PLAYER_HURT_FREEZE, 1f, 0.7f)
+            }
+        }
     }
 
     private fun applyEffects(player: Player) {
