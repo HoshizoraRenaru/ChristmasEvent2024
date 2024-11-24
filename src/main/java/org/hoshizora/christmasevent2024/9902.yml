@@ -314,13 +314,9 @@ items:
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
       - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
-      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
-    enchants:
-      protection: 5
-      mending: 1
-      unbreaking: 3
-      thorns: 2
+    addGlow: true
 
     dropEffect:
       firework:
@@ -329,7 +325,7 @@ items:
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &f&l망토 &9&k&lL &f를 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &f&k&lL &b&l영혼 &9&l지휘봉 &c&o&n(교환권)&r &f&k&lL &f를 획득하셨습니다!!!'
     chance: 2
 
 

@@ -8,3 +8,8 @@ commands:
   dev:
     description: "Get SoulOverseer[Christmas 20024] dev command."
     usage: "/dev SoulOverseer"
+    permission: eternal.command.dev
+  exprefresh:
+    description: Refresh your experience points.
+    usage: /<command>
+    permission: ""
