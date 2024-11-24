@@ -107,7 +107,6 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
             tasks.add(it)
         }
 
-        // 파티클 생성 (원래 방식 유지)
         val particleTask = object : BukkitRunnable() {
             override fun run() {
                 spawnParticles(player)
