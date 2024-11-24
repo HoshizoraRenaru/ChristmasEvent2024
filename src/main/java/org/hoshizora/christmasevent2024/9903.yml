@@ -1,19 +1,19 @@
 # The full documentation is at https://dev.bukkit.org/projects/random_box/pages/main/documentation
 # This is the 1.13+ version of the default box
 
-boxItem: PURPLE_SHULKER_BOX
+boxItem: ENDER_CHEST
 
-boxName: '&e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL&f'
+boxName: '&e&l&kL &r&f➶-͙˚ ༘✶ &1&l은하수 &f&l보름달 &6&l상자 &r&f｡･:*˚:✧｡ &e&l&kL&f'
 
 lore:
   - '&l&dM&9e&dr&9r&dy &9c&dh&9r&di&9s&dt&9m&da&9s!'
-  - '&f행복한 크리스마스 되세요!'
+  - '&f행복하고 즐거운 크리스마스 되세요!'
   - '&7──────────────────'
   - 'items 0 &7%ordinal%. &ex%amount% %name%'
   - '&7──────────────────'
   - '&d크&9리&d스&9마&d스 &f박&9스'
 
-addGlow: false
+addGlow: true
 
 # CustomModelData tag, which will be added to the box item.
 # This setting will be ignored on versions lower than 1.14.
@@ -25,7 +25,7 @@ customModelData: 123
 # - nbtTag (arbitrary NBT tag, as used in /give command)
 # See https://minecraft.gamepedia.com/Tutorials/Command_NBT_tags#Items
 
-unstackable: false
+unstackable: true
 
 checkPermission: false
 
@@ -87,7 +87,7 @@ effects:
       sound: BLOCK_CHEST_OPEN
       volume: 1.0
       pitch: 1.0
-    broadcast: '&f%player%님이 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL&f를 열고 있습니다!'
+    broadcast: '&f%player%님이 &e&l&kL &r&f➶-͙˚ ༘✶ &1&l은하수 &f&l보름달 &6&l상자 &r&f｡･:*˚:✧｡ &e&l&kL&f를 열고 있습니다!'
   move:
     sound: {sound: UI_BUTTON_CLICK}
   drop:
@@ -311,7 +311,7 @@ items:
     name: '&9&k&lL &b&l눈의 여왕의 &f&l망토 &c&o&n(교환권)&r &9&k&lL'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&9&k&lL &b&l눈의 여왕의 &f&l망토 &9&k&lL&f] 아이템으로'
+      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
@@ -334,7 +334,7 @@ items:
     name: '&9&k&lL &b&l눈의 여왕의 &f&l스타킹 &c&o&n(교환권)&r &9&k&lL'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&9&k&lL &b&l눈의 여왕의 &f&l스타킹 &9&k&lL&f] 아이템으로'
+      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
@@ -356,7 +356,7 @@ items:
     name: '&9&k&lL &b&l눈의 여왕의 &f&l구두 &c&o&n(교환권)&r &9&k&lL'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&9&k&lL &b&l눈의 여왕의 &f&l구두 &9&k&lL&f] 아이템으로'
+      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
@@ -377,10 +377,15 @@ items:
     amount: 1
     name: '&9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 &c&o&n(교환권)&r &6👑 &9&k&lL'
     lore:
-      - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 &6👑 &9&k&lL&f] 아이템으로'
-      - '&f 교환하실 수 있습니다.'
+      - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
       - '&f2024 Christmas Limited Edition'
+    enchants:
+      protection: 7
+      mending: 1
+      unbreaking: 8
+      thorns: 2
 
     dropEffect:
       firework:
@@ -399,7 +404,7 @@ items:
     name: '&9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &c&o&n(교환권)&r &9&k&lL'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &9&k&lL&f] 아이템으로'
+      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
