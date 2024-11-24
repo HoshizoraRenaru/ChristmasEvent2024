@@ -4,6 +4,7 @@ import org.bukkit.ChatColor
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -20,6 +21,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
     private var skillActive = false
     private var skillTask: BukkitRunnable? = null
     private var damageTask: BukkitRunnable? = null
+    private var expTask: BukkitRunnable? = null
 
     @EventHandler
     fun onPlayerUse(event: PlayerInteractEvent) {
@@ -81,6 +83,34 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST)
+    fun onEntityDamageByEntity(event: EntityDamageByEntityEvent) {
+        val damager = event.damager
+        val entity = event.entity
+
+        if (damager is Player && entity is LivingEntity) {
+            if (skillActive && damager.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())) {
+                // 소울 바이트 데미지 추가
+                val soulBiteDamage = 3.0
+                event.damage += soulBiteDamage
+
+                // 슬로우 효과 적용
+                entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 20, 1, true, false))
+
+                // 넉백 방지
+                entity.velocity = Vector(0, 0, 0)
+
+                // 경험치 소모
+                if (damager.totalExperience > 0) {
+                    damager.giveExp(-0)
+                } else {
+                    damager.sendMessage("${ChatColor.RED}경험치가 부족합니다!")
+                    deactivateSkill(damager)
+                }
+            }
+        }
+    }
+
     private fun activateSkill(player: Player) {
         skillActive = true
         player.sendMessage("${ChatColor.GREEN}소울 바이트 발동됨")
@@ -94,27 +124,37 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
             it.runTaskTimer(plugin, 0L, 2L)  // 2틱마다 실행
         }
 
-        // 데미지 및 효과 적용 (0.5초마다)
+        // 데미지 및 효과 적용 (1초마다)
         damageTask = object : BukkitRunnable() {
+            override fun run() {
+                applyEffects(player)
+            }
+        }.also {
+            it.runTaskTimer(plugin, 0L, 20L)  // 20틱(1초)마다 실행
+        }
+
+        // 경험치 소모 (0.1초마다)
+        expTask = object : BukkitRunnable() {
             override fun run() {
                 if (player.totalExperience > 0) {
                     player.giveExp(-1)
-                    applyEffects(player)
                 } else {
                     player.sendMessage("${ChatColor.RED}경험치가 부족합니다!")
                     deactivateSkill(player)
                 }
             }
         }.also {
-            it.runTaskTimer(plugin, 0L, 10L)  // 10틱마다 실행 (0.5초마다)
+            it.runTaskTimer(plugin, 0L, 2L)  // 2틱(0.1초)마다 실행
         }
     }
 
     private fun deactivateSkill(player: Player) {
         skillTask?.cancel()
         damageTask?.cancel()
+        expTask?.cancel()
         skillTask = null
         damageTask = null
+        expTask = null
         skillActive = false
         player.sendMessage("${ChatColor.RED}소울 바이트 중지됨")
     }
