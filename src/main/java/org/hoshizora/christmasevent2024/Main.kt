@@ -13,6 +13,7 @@ class Main : JavaPlugin(), CommandExecutor {
         logger.info("Welcome to 2024 Christmas!")
 
         server.pluginManager.registerEvents(SoulOverseerListener(this), this)
+        server.pluginManager.registerEvents(YoinoYoYoiListener(this), this)
 
         getCommand("dev")?.apply {
             setExecutor(DevCommand())

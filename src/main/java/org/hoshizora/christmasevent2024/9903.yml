@@ -8,12 +8,12 @@ boxName: '&e&l&kL &r&f➶-͙˚ ༘✶ &1&l은하수 &f&l보름달 &6&l상자 &r&
 lore:
   - '&l&dM&9e&dr&9r&dy &9c&dh&9r&di&9s&dt&9m&da&9s!'
   - '&f행복하고 즐거운 크리스마스 되세요!'
-  - '&7──────────────────'
+  - '&7──────────────'
   - 'items 0 &7%ordinal%. &ex%amount% %name%'
-  - '&7──────────────────'
+  - '&7──────────────'
   - '&d크&9리&d스&9마&d스 &f박&9스'
 
-addGlow: true
+addGlow: false
 
 # CustomModelData tag, which will be added to the box item.
 # This setting will be ignored on versions lower than 1.14.
@@ -84,251 +84,87 @@ effects:
       trail: false
       power: 3
     sound:
-      sound: BLOCK_CHEST_OPEN
+      sound: BLOCK_ENDER_CHEST_OPEN
       volume: 1.0
       pitch: 1.0
     broadcast: '&f%player%님이 &e&l&kL &r&f➶-͙˚ ༘✶ &1&l은하수 &f&l보름달 &6&l상자 &r&f｡･:*˚:✧｡ &e&l&kL&f를 열고 있습니다!'
   move:
-    sound: {sound: UI_BUTTON_CLICK}
+    sound: {sound: BLOCK_RESPAWN_ANCHOR_CHARGE}
   drop:
-    sound: {sound: BLOCK_ANVIL_LAND}
+    sound: {sound: ENTITY_PLAYER_LEVELUP}
     firework:
       type: STAR
       colors: ['WHITE']
   close:
-    sound: {sound: BLOCK_CHEST_CLOSE}
+    sound: {sound: BLOCK_ENDER_CHEST_CLOSE}
 
 items:
   item1:
-    item: NETHERITE_SWORD
-    data: 0
+    item: paper
     amount: 1
-    name: '&2&k&lL &c&l크&2&l리&c&l스&2&l마&c&l스 &c&l파&c&l괴&c&l자 &2&k&lL'
+    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 산타의 &f&l검 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
-      - '&f이 아이템은 &c&k&lL &l&c크&2리&c스&2마&c스 &f랜&a덤&f박&a스 &c&k&lL'
-      - '&f에서 드롭되었습니다!'
-      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
-      - '&f2023 Christmas Limited Edition'
-    # CustomModelData tag, which will be added to the dropped item.
-    # This setting will be ignored on versions lower than 1.14.
-    # You can remove this setting, so no data will be set.
-    customModelData: 123
-    enchants:
-      sharpness: 7
-      unbreaking: 5
-      fire: 3
-      mending: 1
-      sweeping: 3
-      looting: 3
+      - '&f크리스마스 이벤트 상인으로부터'
+      - '&f[&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 산타의 &f&l검 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
+      - '&f 교환하실 수 있습니다.'
+      - '&6&l&kL &f2024 Christmas Limited Edition &6&l&kL'
+    addGlow: true
 
     dropEffect:
       firework:
         type: BALL_LARGE
-        colors: ['RED', 'GREEN']
+        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&f플레이어 &6%player%님이 &2&k&lL &c&l크&2&l리&c&l스&2&l마&c&l스 &c&l파&c&l괴&c&l자 &2&k&lL &f를 획득하셨습니다!!!'
-    chance: 3
-
+      broadcast: '&6%player%님이 &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 산타의 &f&l검 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
+    chance: 2
 
   item2:
-    item: REDSTONE_TORCH
+    item: paper
     amount: 1
-    name: '&c&k&lL &c루돌프&f의 &c빨간 코 &c&k&lL'
+    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l검은 순록 &f&l활 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
-      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
-    enchants:
-      knockback: 3
+      - '&f크리스마스 이벤트 상인으로부터'
+      - '&f[&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l검은 순록 &f&l활 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
+      - '&f 교환하실 수 있습니다.'
+      - '&6&l&kL &f2024 Christmas Limited Edition &6&l&kL'
+    addGlow: true
 
     dropEffect:
       firework:
         type: BALL_LARGE
-        colors: ['RED', 'GREEN']
+        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '플레이어 &6%player%님이 &c루돌프&f의 &c빨간 코 &f를 획득하셨습니다!!!'
-    chance: 10
+      broadcast: '&6%player%님이 &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l검은 순록 &f&l활 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
+    chance: 2
 
 
   item3:
-    item: totem_of_undying
+    item: paper
     amount: 1
-    name: '&c&k&lL &c크&2리&c스&2마&c스 &f불&a사&f의 &a토&f템 &c&k&lL'
+    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
-      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+      - '&f크리스마스 이벤트 상인으로부터'
+      - '&f[&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
+      - '&f 교환하실 수 있습니다.'
+      - '&6&l&kL &f2024 Christmas Limited Edition &6&l&kL'
+    addGlow: true
 
     dropEffect:
       firework:
         type: BALL_LARGE
-        colors: ['RED', 'GREEN']
+        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '플레이어 &6%player%님이 &c&k&lL &c크&2리&c스&2마&c스 &f불&a사&f의 &a토&f템 &c&k&lL &f을 획득하셨습니다!!!'
-    chance: 8
-
-
-  item4:
-    item: BOW
-    amount: 1
-    name: '&c&k&lL &c크&2리&c스&2마&c스 &f활 &c&k&lL'
-    lore:
-      - '&l&f이 아이템은 &c크&2리&c스&2마&c스 &c한정판&f입니다!'
-    enchants:
-      power: 6
-      unbreaking: 3
-      mending: 1
-
-    dropEffect:
-      firework:
-        type: BALL_LARGE
-        colors: ['RED', 'GREEN']
-        fadeColors: ['GRAY']
-        power: 0
-      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '플레이어 &6%player%님이 &c&k&lL &c크&2리&c스&2마&c스 &f활 &c&k&lL &f을 획득하셨습니다!!!'
-    chance: 10
+      broadcast: '&6%player%님이 &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
+    chance: 2
 
 
   item5:
-    item: GOLDEN_APPLE
-    name: '&c&k&lL &l&c크&2리&c스&2마&c스&2의 &f얼&a어&f붙&a은 &f사&a과 &c&k&lL'
-    lore:
-      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
-    dontAssignName: true
-    amount: 1-8
-    chance: 7
-
-
-  item6:
-    item: IRON_SWORD
-    amount: 1
-    name: '&l&c크&2리&c스&2마&c스 &f철 검'
-    lore:
-      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
-    enchants:
-      sharpness: 5
-      unbreaking: 3
-      knockback: 1
-
-    dropEffect:
-      firework:
-        type: BALL_LARGE
-        colors: ['RED', 'GREEN']
-        fadeColors: ['GRAY']
-        power: 0
-      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '플레이어 &6%player%님이 &l&c크&2리&c스&2마&c스 &f철 검 &f을 획득하셨습니다!!!'
-    chance: 10
-
-
-  item7:
-    commands:
-      command1:
-        line: 'xp add %player% 10 levels'
-        fromConsole: true
-    dontGiveItem: true
-    inBoxLoreFormat: '&7%ordinal%. %name%'
-    item: EXPERIENCE_BOTTLE
-    name: '&d크&9리&d스&9마&d스 &f경&9험&f치&f(&910&f레&9벨&f)'
-    amount: 10
-    chance: 30
-
-
-
-  item10:
-    box: 9902
-    name: '&d크&9리&d스&9마&d스 &f보&9너&f스&9상&f자'
-    inBoxLoreFormat: '&7%ordinal%. %name%'
-    chance: 2
-
-
-  item11:
-    item: GUNPOWDER
-    name: '&f화약'
-    dontAssignName: true
-    amount: 5-20
-    chance: 5
-  item12:
-    item: DIAMOND
-    name: '&f다이아몬드'
-    dontAssignName: true
-    amount: 1-5
-    chance: 7
-
-
-  item13:
-    item: IRON_INGOT
-    name: '&f철 주괴'
-    dontAssignName: true
-    amount: 1-12
-    chance: 10
-
-
-  item14:
-    item: GOLD_INGOT
-    name: '&f금 주괴'
-    dontAssignName: true
-    amount: 1-10
-    chance: 8
-
-
-  item15:
-    item: ANCIENT_DEBRIS
-    name: '&f고대 잔해'
-    dontAssignName: true
-    amount: 1-3
-    chance: 3
-
-
-  item17:
-    item: paper
-    amount: 1
-    name: '&f&k&lL &b&l영혼 &9&l지휘봉 &c&o&n(교환권)&r &f&k&lL'
-    lore:
-      - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
-      - '&f 교환하실 수 있습니다.'
-      - '&f2024 Christmas Limited Edition'
-    addGlow: true
-
-    dropEffect:
-      firework:
-        type: BALL_LARGE
-        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
-        fadeColors: ['GRAY']
-        power: 0
-      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&6%player%님이 &f&k&lL &b&l영혼 &9&l지휘봉 &c&o&n(교환권)&r &f&k&lL &f를 획득하셨습니다!!!'
-    chance: 2
-
-
-  item18:
-    item: paper
-    amount: 1
-    name: '&9&k&lL &b&l눈의 여왕의 &f&l망토 &c&o&n(교환권)&r &9&k&lL'
-    lore:
-      - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
-      - '&f 교환하실 수 있습니다.'
-      - '&f2024 Christmas Limited Edition'
-    addGlow: true
-
-
-    dropEffect:
-      firework:
-        type: BALL_LARGE
-        colors: [ 'BLUE', 'WHITE', 'AQUA' ]
-        fadeColors: [ 'GRAY' ]
-        power: 0
-      sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
-      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &f&l망토 &c&o&n(교환권)&r &9&k&lL &f를 획득하셨습니다!!!'
-    chance: 2
-
-
-  item19:
     item: paper
     amount: 1
     name: '&9&k&lL &b&l눈의 여왕의 &f&l스타킹 &c&o&n(교환권)&r &9&k&lL'
@@ -350,7 +186,7 @@ items:
     chance: 2
 
 
-  item20:
+  item6:
     item: paper
     amount: 1
     name: '&9&k&lL &b&l눈의 여왕의 &f&l구두 &c&o&n(교환권)&r &9&k&lL'
@@ -372,7 +208,7 @@ items:
     chance: 2
 
 
-  item21:
+  item7:
     item: golden_helmet
     amount: 1
     name: '&9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 &c&o&n(교환권)&r &6👑 &9&k&lL'
@@ -398,7 +234,7 @@ items:
     chance: 1
 
 
-  item22:
+  item8:
     item: paper
     amount: 1
     name: '&9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &c&o&n(교환권)&r &9&k&lL'
