@@ -11,5 +11,9 @@ commands:
     permission: eternal.command.dev
   exprefresh:
     description: Refresh your experience points.
-    usage: /<command>
+    usage: /exprefresh
+    permission: ""
+  checkexp:
+    description: "Check your experience points"
+    usage: "/checkexp"
     permission: ""

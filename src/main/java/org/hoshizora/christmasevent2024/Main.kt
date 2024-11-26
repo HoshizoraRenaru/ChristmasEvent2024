@@ -23,7 +23,6 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(OtherworldlyWandererListener(this), this)
         experienceManager = ExperienceManager(this)
         server.pluginManager.registerEvents(ExperienceEventListener(experienceManager), this)
-        server.pluginManager.registerEvents(OtherworldlyWandererListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()
@@ -36,6 +35,9 @@ class Main : JavaPlugin(), CommandExecutor {
         getCommand("exprefresh")?.apply {
             setExecutor(ExpRefreshCommand())
             tabCompleter = ExpRefreshTabCompleter()
+        }
+        getCommand("checkexp")?.apply {
+            setExecutor(CheckExpCommand())
         }
     }
 
