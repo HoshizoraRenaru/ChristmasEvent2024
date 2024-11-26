@@ -22,6 +22,8 @@ object ItemManager {
             soulOverseer.itemMeta = it
         }
 
+        soulOverseer.durability = 0
+
         return soulOverseer
     }
 }

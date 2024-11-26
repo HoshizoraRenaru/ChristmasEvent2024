@@ -102,7 +102,7 @@ items:
   item1:
     item: paper
     amount: 1
-    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 산타의 &f&l검 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
+    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
       - ''
       - '&f크리스마스 이벤트 상인으로부터'

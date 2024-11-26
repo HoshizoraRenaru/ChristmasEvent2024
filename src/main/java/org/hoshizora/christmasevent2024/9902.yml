@@ -134,13 +134,18 @@ items:
 
 
   item2:
-    item: REDSTONE_TORCH
+    item: stone_hoe
     amount: 1
-    name: '&c&k&lL &c루돌프&f의 &c빨간 코 &c&k&lL'
+    name: '&d크&9리&d스&9마&d스&f의 &5악몽'
     lore:
-      - '&l&f이 아이템은 &l&c크&2리&c스&2마&c스 &c한정판&f입니다!'
+      - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
     enchants:
-      knockback: 3
+      sharpness: 12
+      unbreaking: 3
+      mending: 1
 
     dropEffect:
       firework:
@@ -149,7 +154,7 @@ items:
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '플레이어 &6%player%님이 &c루돌프&f의 &c빨간 코 &f를 획득하셨습니다!!!'
+      broadcast: '&f%player%님이 &d크&9리&d스&9마&d스&f의 &5악몽을 획득하셨습니다!!!'
     chance: 10
 
 

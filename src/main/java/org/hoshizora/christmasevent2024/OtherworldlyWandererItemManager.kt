@@ -16,21 +16,23 @@ object OtherworldlyWandererItemManager {
             it.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f"))
             it.lore = listOf(
                 "",
-                "${ChatColor.GOLD}스킬: ${ChatColor.RED}${ChatColor.BOLD}이계의 워프 ${ChatColor.YELLOW}${ChatColor.BOLD}RIGHT CLICK",
+                "${ChatColor.GOLD}스킬: ${ChatColor.of("#3500ba")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}이${ChatColor.of("#370fcb")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}계${ChatColor.of("#3a1fdc")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}의 ${ChatColor.of("#3c2fed")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}워${ChatColor.BLUE}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}프${ChatColor.RESET}${ChatColor.WHITE}${ChatColor.BOLD} ⚝${ChatColor.YELLOW}${ChatColor.BOLD} RIGHT CLICK",
                 "${ChatColor.RESET}${ChatColor.YELLOW}20 ${ChatColor.GRAY}경험치를 소모하여 범위 내의 가장",
                 "${ChatColor.RESET}${ChatColor.GRAY}가까운 적의 뒤로 텔레포트한다.",
                 "${ChatColor.GRAY}쿨다운: ${ChatColor.GREEN}15초",
                 "",
-                "${ChatColor.GOLD}액티브 스킬: ${ChatColor.RED}${ChatColor.BOLD}Hit Combo",
-                "${ChatColor.RESET}${ChatColor.YELLOW}5초 이내에 동일한 적을 3번 이상 때릴 시,",
-                "${ChatColor.GRAY}신속 1과 공격력 증가 1 효과를 10초간 부여합니다."
+                "${ChatColor.GOLD}패시브 스킬: ${ChatColor.DARK_PURPLE}${ChatColor.BOLD}Hit Combo",
+                "${ChatColor.RESET}${ChatColor.GREEN}5초 ${ChatColor.GRAY}이내에 동일한 적을 ${ChatColor.YELLOW}3번 ${ChatColor.GRAY}이상 타격시,",
+                "${ChatColor.RED}신속 1${ChatColor.GRAY}과 ${ChatColor.RED}힘 1${ChatColor.GRAY}효과를 ${ChatColor.GREEN}10초${ChatColor.GRAY}간 부여한다.",
+                "${ChatColor.GREEN}15초 ${ChatColor.GRAY}이내 다른 타격이 없을 시 콤보는 ",
+                "${ChatColor.GRAY}초기화된다."
             )
             hoe.itemMeta = it
         }
 
         // 인챈트 추가
         hoe.addUnsafeEnchantment(Enchantment.MENDING, 1)
-        hoe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10)
+        hoe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 14)
         hoe.addUnsafeEnchantment(Enchantment.DURABILITY, 3)
 
         return hoe

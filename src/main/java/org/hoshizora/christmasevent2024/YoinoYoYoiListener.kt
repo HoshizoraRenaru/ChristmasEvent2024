@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.FireworkExplodeEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
@@ -22,12 +23,25 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
 
     private val cooldowns = mutableMapOf<UUID, Long>()
 
+    // YoinoYoYoi 아이템인지 확인하는 메서드
+    private fun isSimilarYoinoYoYoi(item: ItemStack?): Boolean {
+        if (item == null || !item.hasItemMeta()) return false
+
+        val meta = item.itemMeta ?: return false
+        val referenceItem = YoinoYoYoiItemManager.createYoinoYoYoi()
+
+        return meta.displayName == referenceItem.itemMeta?.displayName &&
+                meta.lore == referenceItem.itemMeta?.lore &&
+                item.type == referenceItem.type
+    }
+
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
         val item = player.inventory.itemInMainHand
 
-        if (item.isSimilar(YoinoYoYoiItemManager.createYoinoYoYoi()) && (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK)) {
+        // YoinoYoYoi 아이템이 오른쪽 클릭으로 사용될 때만 작동
+        if (isSimilarYoinoYoYoi(item) && (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK)) {
             event.isCancelled = true
             useSkill(player)
         }
