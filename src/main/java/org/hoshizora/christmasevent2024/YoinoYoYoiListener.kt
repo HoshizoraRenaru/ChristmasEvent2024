@@ -47,13 +47,13 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
         }
 
         // Check if the player has enough experience points
-        if (player.totalExperience < 10) {
+        if (player.totalExperience < 20) {
             player.sendMessage("${ChatColor.RED}경험치가 부족합니다!")
             return
         }
 
         // Deduct 10 experience points from the player
-        player.giveExp(-10)
+        player.giveExp(-20)
 
         cooldowns[playerId] = currentTime
 
@@ -62,6 +62,9 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
         launchFirework(player.location, Color.RED)
         launchFirework(player.location, Color.ORANGE)
         launchFirework(player.location, Color.YELLOW)
+
+        // Spawn FLAME particles around the player
+        spawnFlameParticles(player)
 
         // Apply potion effect with hidden particles
         player.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false))
@@ -78,8 +81,22 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
         fw.persistentDataContainer.set(NamespacedKey(plugin, "skillFirework"), PersistentDataType.BYTE, 1)
     }
 
-    @EventHandler
-    fun onPlayerQuit(event: PlayerQuitEvent) {
-        cooldowns.remove(event.player.uniqueId)
+    private fun spawnFlameParticles(player: Player) {
+        val location = player.location.add(0.0, 1.0, 0.0)
+        val world = location.world ?: return
+
+        val particleCount = 152
+        val spreadRadius = 0.1
+        val speed = 0.8
+
+        world.spawnParticle(
+            Particle.FLAME,
+            location,
+            particleCount,
+            spreadRadius, // x
+            spreadRadius, // y
+            spreadRadius, // z
+            speed
+        )
     }
 }

@@ -14,6 +14,7 @@ class Main : JavaPlugin(), CommandExecutor {
 
         server.pluginManager.registerEvents(SoulOverseerListener(this), this)
         server.pluginManager.registerEvents(YoinoYoYoiListener(this), this)
+        server.pluginManager.registerEvents(OtherworldlyWandererListener(this), this)
 
         getCommand("dev")?.apply {
             setExecutor(DevCommand())

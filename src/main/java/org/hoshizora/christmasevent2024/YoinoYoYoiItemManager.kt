@@ -16,7 +16,7 @@ object YoinoYoYoiItemManager {
             it.lore = listOf(
                 "",
                 "${ChatColor.GOLD}스킬: ${ChatColor.RED}${ChatColor.BOLD}宵の${ChatColor.DARK_RED}${ChatColor.BOLD}余、${ChatColor.YELLOW}${ChatColor.BOLD}良い！${ChatColor.RESET} ${ChatColor.YELLOW}${ChatColor.BOLD}RIGHT CLICK",
-                "${ChatColor.RESET}${ChatColor.YELLOW}10${ChatColor.GRAY}경험치를 소모하여 ${ChatColor.GREEN}10초${ChatColor.GRAY}간 자신에게 ${ChatColor.RED}힘 2",
+                "${ChatColor.RESET}${ChatColor.YELLOW}20 ${ChatColor.GRAY}경험치를 소모하여 ${ChatColor.GREEN}10초${ChatColor.GRAY}간 자신에게 ${ChatColor.RED}힘 2",
                 "${ChatColor.GRAY}효과를 부여한다.",
                 "${ChatColor.GRAY}쿨다운: ${ChatColor.GREEN}15초"
             )
