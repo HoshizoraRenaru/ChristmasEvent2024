@@ -11,7 +11,7 @@ class ExpRefreshCommand : CommandExecutor {
         if (sender is Player) {
             val player: Player = sender
 
-            // 현재 레벨과 진행도 기반으로 totalExperience 계산
+            // 현재 레벨, 진행도 기반 totalExperience 계산
             val totalExperience = calculateTotalExperience(player.level, player.exp)
 
             player.totalExperience = 0

@@ -24,12 +24,16 @@ class DevCommand : CommandExecutor {
                             sender.inventory.addItem(OtherworldlyWandererItemManager.createOtherworldlyWanderer())
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL &r&f[Christmas 2024] has been given."))
                         }
+                        args[0].equals("mirroredchristmasdestroyer", ignoreCase = true) -> { // 추가
+                            sender.inventory.addItem(MirroredChristmasDestroyerItemManager.createMirroredChristmasDestroyer())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL &r&f[Christmas 2024] has been given."))
+                        }
                         else -> {
-                            sender.sendMessage("Invalid argument! Please use SoulOverseer, YoinoYoYoi, or OtherworldlyWanderer.")
+                            sender.sendMessage("${ChatColor.RED}Invalid argument!")
                         }
                     }
                 } else {
-                    sender.sendMessage("Please provide an item name (SoulOverseer, YoinoYoYoi, or OtherworldlyWanderer).")
+                    sender.sendMessage("Please provide an item name.")
                 }
             } else {
                 sender.sendMessage("Only players can use this command.")

@@ -21,7 +21,7 @@ import java.util.*
 class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
 
     private val cooldowns = mutableMapOf<UUID, Long>()
-    private val hitCombos = mutableMapOf<UUID, MutableMap<UUID, ComboInfo>>() // Player -> Target -> Combo Info
+    private val hitCombos = mutableMapOf<UUID, MutableMap<UUID, ComboInfo>>()
 
     private fun isOtherworldlyWanderer(item: ItemStack?): Boolean {
         if (item == null || !item.hasItemMeta()) return false
@@ -34,19 +34,17 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
 
 
     init {
-        // 파티클 효과를 위한 반복 작업 시작
         object : BukkitRunnable() {
             override fun run() {
                 Bukkit.getOnlinePlayers().forEach { player ->
-                    if (player.inventory.itemInMainHand.isSimilar(OtherworldlyWandererItemManager.createOtherworldlyWanderer())) {
+                    if (isOtherworldlyWanderer(player.inventory.itemInMainHand)) {
                         spawnParticles(player)
                     }
                 }
             }
-        }.runTaskTimer(plugin, 0L, 5L) // 0.25초마다 실행 (5 ticks)
+        }.runTaskTimer(plugin, 0L, 5L)
     }
 
-    // 파티클 생성 메소드
     private fun spawnParticles(player: Player) {
         val location = player.location.add(0.0, 1.0, 0.0)
 
@@ -57,7 +55,7 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
         player.world.spawnParticle(Particle.REDSTONE, location, 7, 0.5, 0.5, 0.5, dustOptions)
     }
 
-    // 패시브 스킬: "이계의 워프"
+    // 이계의 워프
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
@@ -66,22 +64,21 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
         if (isOtherworldlyWanderer(item) &&
             (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK)) {
 
-            event.isCancelled = true // 상호작용 취소
+            event.isCancelled = true
 
-            // "이계의 워프" 스킬 사용
             useWarpSkill(player)
         }
 
         if (isOtherworldlyWanderer(item) &&
             (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK)) {
 
-            event.isCancelled = true // 상호작용 취소
+            event.isCancelled = true
         }
 
         if ((event.action == Action.LEFT_CLICK_AIR || event.action == Action.LEFT_CLICK_BLOCK) &&
             isOtherworldlyWanderer(item)) {
 
-            event.isCancelled = true // 상호작용 취소
+            event.isCancelled = true
         }
     }
 
@@ -124,7 +121,6 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
                 return
             }
 
-            // 경험치 차감 및 쿨다운 설정은 텔레포트가 성공적으로 이루어진 후에만 적용
             player.giveExp(-20)
             cooldowns[playerId] = currentTime
 
@@ -136,15 +132,14 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
         }
     }
 
-    // 액티브 스킬: "Hit Combo"
+    // Hit Combo
     @EventHandler
     fun onEntityDamage(event: EntityDamageByEntityEvent) {
         val attacker = event.damager as? Player ?: return
         val target = event.entity as? LivingEntity ?: return
 
-        // 공격자가 사용하는 무기가 OtherworldlyWanderer인지 확인
         if (!isOtherworldlyWanderer(attacker.inventory.itemInMainHand)) {
-            return // 무기가 OtherworldlyWanderer가 아니면 로직 중단
+            return
         }
 
         val currentTime = System.currentTimeMillis()
@@ -163,7 +158,6 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
 
         comboInfo.lastHitTime = currentTime
 
-        // 이전 태스크 취소하고 새 태스크 설정
         comboInfo.taskId?.let { Bukkit.getScheduler().cancelTask(it) }
 
         comboInfo.taskId = Bukkit.getScheduler().runTaskLater(plugin, Runnable {
@@ -172,7 +166,7 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
                     deactivateCombo(attacker)
                 }
             }
-        }, 200L).taskId // 200 ticks = 10 seconds
+        }, 200L).taskId // ComboBreak time
     }
 
     private fun activateCombo(player: Player, hitCount: Int) {
@@ -183,16 +177,12 @@ class OtherworldlyWandererListener(private val plugin: JavaPlugin) : Listener {
         } else {
             "${ChatColor.DARK_PURPLE}${ChatColor.BOLD}Hit Combo 발동됨"
         }
-
-        // 액션바에 메시지 표시
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent(message))
     }
 
     private fun deactivateCombo(player: Player) {
         player.removePotionEffect(PotionEffectType.SPEED)
         player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE)
-
-        // 액션바에 콤보 해제 메시지 표시
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent("${ChatColor.RED}${ChatColor.BOLD}Hit Combo 초기화됨"))
     }
 

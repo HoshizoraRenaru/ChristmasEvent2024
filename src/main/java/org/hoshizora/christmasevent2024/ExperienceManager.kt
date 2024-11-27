@@ -20,7 +20,6 @@ class ExperienceManager(private val plugin: JavaPlugin) {
         loadAllPlayersExperience()
     }
 
-    // 모든 플레이어의 경험치 불러오기
     private fun loadAllPlayersExperience() {
         config.getKeys(false).forEach { playerName ->
             val experience = config.getInt(playerName)
@@ -32,16 +31,12 @@ class ExperienceManager(private val plugin: JavaPlugin) {
         }
     }
 
-    // 경험치 저장
     fun saveExperience(player: Player) {
-        // 현재 경험치를 저장
         savedExperience[player] = player.totalExperience
-        // YAML 파일에 저장
         config.set(player.name, player.totalExperience)
         saveConfig()
     }
 
-    // YAML 파일 저장
     private fun saveConfig() {
         try {
             config.save(dataFile)
@@ -50,19 +45,16 @@ class ExperienceManager(private val plugin: JavaPlugin) {
         }
     }
 
-    // 경험치 불러오기
     fun loadExperience(player: Player): Int {
         return savedExperience.getOrDefault(player, 0) // 기본값 0
     }
 
-    // 모든 플레이어 경험치 저장
     fun saveAllPlayers() {
         plugin.server.onlinePlayers.forEach { player ->
             saveExperience(player)
         }
     }
 
-    // 특정 플레이어 경험치 복구
     fun restoreExperience(player: Player) {
         val experience = loadExperience(player)
         player.giveExp(experience)

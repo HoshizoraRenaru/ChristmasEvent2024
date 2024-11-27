@@ -23,7 +23,6 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
 
     private val cooldowns = mutableMapOf<UUID, Long>()
 
-    // YoinoYoYoi 아이템인지 확인하는 메서드
     private fun isSimilarYoinoYoYoi(item: ItemStack?): Boolean {
         if (item == null || !item.hasItemMeta()) return false
 
@@ -40,7 +39,6 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
         val player = event.player
         val item = player.inventory.itemInMainHand
 
-        // YoinoYoYoi 아이템이 오른쪽 클릭으로 사용될 때만 작동
         if (isSimilarYoinoYoYoi(item) && (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK)) {
             event.isCancelled = true
             useSkill(player)
@@ -50,7 +48,7 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
     private fun useSkill(player: Player) {
         val playerId = player.uniqueId
         val currentTime = System.currentTimeMillis()
-        val cooldownTime = 15000 // 15 seconds in milliseconds
+        val cooldownTime = 15000
 
         if (cooldowns.containsKey(playerId)) {
             val timeLeft = ((cooldowns[playerId]!! + cooldownTime) - currentTime) / 1000
@@ -66,21 +64,17 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
             return
         }
 
-        // Deduct 10 experience points from the player
         player.giveExp(-20)
 
         cooldowns[playerId] = currentTime
 
-        // Launch fireworks immediately
         launchFirework(player.location, Color.RED)
         launchFirework(player.location, Color.RED)
         launchFirework(player.location, Color.ORANGE)
         launchFirework(player.location, Color.YELLOW)
 
-        // Spawn FLAME particles around the player
         spawnFlameParticles(player)
 
-        // Apply potion effect with hidden particles
         player.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, false, false))
         player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 60, 0, false, false))
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5&l天真爛漫 &c&l宵の&4&l余、&e&l良い！"))

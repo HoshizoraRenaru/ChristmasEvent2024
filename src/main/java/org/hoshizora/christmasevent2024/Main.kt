@@ -1,13 +1,6 @@
 package org.hoshizora.christmasevent2024
 
-import org.bukkit.Material
-import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin(), CommandExecutor {
@@ -23,6 +16,7 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(OtherworldlyWandererListener(this), this)
         experienceManager = ExperienceManager(this)
         server.pluginManager.registerEvents(ExperienceEventListener(experienceManager), this)
+        server.pluginManager.registerEvents(MirroredChristmasDestroyerListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()

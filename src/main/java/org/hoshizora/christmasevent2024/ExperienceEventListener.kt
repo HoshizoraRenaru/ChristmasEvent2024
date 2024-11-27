@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerRespawnEvent
 
 class ExperienceEventListener(private val experienceManager: ExperienceManager) : Listener {
 
-    // 플레이어가 접속할 때 경험치 불러오기
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
@@ -23,11 +22,9 @@ class ExperienceEventListener(private val experienceManager: ExperienceManager) 
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
         val player = event.player
-        // 퇴장 시 경험치 저장
         experienceManager.saveExperience(player)
         player.sendMessage("${ChatColor.RED}퇴장 시 경험치가 저장되었습니다.")
 
-        // 디버깅 메시지 출력
         println("${player.name}의 경험치가 저장되었습니다: ${player.totalExperience}")
     }
 
