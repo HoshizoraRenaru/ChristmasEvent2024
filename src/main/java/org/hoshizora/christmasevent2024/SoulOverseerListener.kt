@@ -155,7 +155,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
     private fun applyEffects(player: Player) {
         player.world.getNearbyEntities(player.location, 3.0, 3.0, 3.0).forEach { entity ->
             if (entity is LivingEntity && entity != player) {
-                val damage = 4.0
+                val damage = 3.0
                 entity.damage(damage, player)
                 entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 20, 1, true, false))
                 entity.velocity = Vector(0, 0, 0) // 넉백 방지
