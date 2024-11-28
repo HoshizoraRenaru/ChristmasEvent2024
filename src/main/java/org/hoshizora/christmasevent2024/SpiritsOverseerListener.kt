@@ -18,7 +18,7 @@ import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.util.Vector
 import kotlin.random.Random
 
-class SoulOverseerListener(private val plugin: Main) : Listener {
+class SpiritsOverseerListener(private val plugin: Main) : Listener {
     private val skillActive = mutableMapOf<Player, Boolean>() // 플레이어별 기술 활성화 상태 저장
     private val skillTasks = mutableMapOf<Player, MutableList<BukkitRunnable>>() // 플레이어별 작업 저장
 
@@ -27,7 +27,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         val player = event.player
 
         if ((event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK) &&
-            player.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())
+            player.inventory.itemInMainHand.isSimilar(SpiritsOverseerItemManager.createSoulOverseer())
         ) {
             event.isCancelled = true
 
@@ -38,14 +38,14 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
             }
         }
 
-        if (player.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer()) &&
+        if (player.inventory.itemInMainHand.isSimilar(SpiritsOverseerItemManager.createSoulOverseer()) &&
             (event.action == Action.LEFT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_BLOCK)
         ) {
             event.isCancelled = true
         }
 
         if (event.action == Action.LEFT_CLICK_AIR || event.action == Action.LEFT_CLICK_BLOCK) {
-            if (player.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())) {
+            if (player.inventory.itemInMainHand.isSimilar(SpiritsOverseerItemManager.createSoulOverseer())) {
                 event.isCancelled = true
             }
         }
@@ -54,7 +54,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
     @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
         val player = event.player
-        if (skillActive[player] == true && event.itemDrop.itemStack.isSimilar(ItemManager.createSoulOverseer())) {
+        if (skillActive[player] == true && event.itemDrop.itemStack.isSimilar(SpiritsOverseerItemManager.createSoulOverseer())) {
             deactivateSkill(player)
         }
     }
@@ -62,7 +62,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
     @EventHandler
     fun onItemDamage(event: PlayerItemDamageEvent) {
         val item = event.item
-        if (item.isSimilar(ItemManager.createSoulOverseer())) {
+        if (item.isSimilar(SpiritsOverseerItemManager.createSoulOverseer())) {
             event.isCancelled = true
         }
     }
@@ -73,7 +73,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         val entity = event.entity
 
         if (damager is Player && entity is LivingEntity) {
-            if (damager.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer()) && skillActive[damager] == true) {
+            if (damager.inventory.itemInMainHand.isSimilar(SpiritsOverseerItemManager.createSoulOverseer()) && skillActive[damager] == true) {
                 entity.velocity = Vector(0, 0, 0)
             }
         }
@@ -85,7 +85,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         val killer = entity.killer
 
         if (killer is Player && skillActive[killer] == true &&
-            killer.inventory.itemInMainHand.isSimilar(ItemManager.createSoulOverseer())
+            killer.inventory.itemInMainHand.isSimilar(SpiritsOverseerItemManager.createSoulOverseer())
         ) {
             entity.world.playSound(entity.location, Sound.ENTITY_PLAYER_HURT_FREEZE, 1f, 0.7f)
         }
@@ -93,7 +93,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
 
     private fun activateSkill(player: Player) {
         skillActive[player] = true
-        player.sendMessage("${ChatColor.GREEN}소울 바이트 발동됨")
+        player.sendMessage("${ChatColor.AQUA}${ChatColor.BOLD}정령의 축복${ChatColor.GREEN} 발동됨")
 
         val tasks = mutableListOf<BukkitRunnable>()
 
@@ -149,7 +149,7 @@ class SoulOverseerListener(private val plugin: Main) : Listener {
         skillTasks.remove(player)
 
         skillActive[player] = false
-        player.sendMessage("${ChatColor.RED}소울 바이트 중지됨")
+        player.sendMessage("${ChatColor.AQUA}${ChatColor.BOLD}정령의 축복${ChatColor.RED} 중지됨")
     }
 
     private fun applyEffects(player: Player) {

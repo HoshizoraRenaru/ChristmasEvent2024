@@ -3,7 +3,7 @@
 
 boxItem: ENDER_CHEST
 
-boxName: '&e&l&kL &r&f➶-͙˚ ༘✶ &1&l은하수 &f&l보름달 &6&l상자 &r&f｡･:*˚:✧｡ &e&l&kL&f'
+boxName: '&e&l&kL &r&f｡✧:˚*:･｡ &1&l은하수 &f&l보름달 &6&l상자 &r&f｡･:*˚:✧｡ &e&l&kL&f'
 
 lore:
   - '&l&dM&9e&dr&9r&dy &9c&dh&9r&di&9s&dt&9m&da&9s!'
@@ -102,11 +102,11 @@ items:
   item1:
     item: paper
     amount: 1
-    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
+    name: '&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
       - ''
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 산타의 &f&l검 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
+      - '&f[&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&6&l&kL &f2024 Christmas Limited Edition &6&l&kL'
     addGlow: true
@@ -118,17 +118,17 @@ items:
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&6%player%님이 &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 산타의 &f&l검 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
   item2:
     item: paper
     amount: 1
-    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l검은 순록 &f&l활 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
+    name: '&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l검은 순록 &f&l활 &r&9｡･&f:&9*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
       - ''
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l검은 순록 &f&l활 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
+      - '&f[&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l검은 순록 &f&l활 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&6&l&kL &f2024 Christmas Limited Edition &6&l&kL'
     addGlow: true
@@ -140,18 +140,18 @@ items:
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&6%player%님이 &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l검은 순록 &f&l활 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l검은 순록 &f&l활 &r&9｡･&f:&9*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
 
   item3:
     item: paper
     amount: 1
-    name: '&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
+    name: '&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l이계의 &f&l방랑자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f'
     lore:
       - ''
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
+      - '&f[&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l이계의 &f&l방랑자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&6&l&kL &f2024 Christmas Limited Edition &6&l&kL'
     addGlow: true
@@ -163,17 +163,17 @@ items:
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&6%player%님이 &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l이계의 &f&l방랑자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &c&o&n(교환권)&r &5&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
 
   item5:
     item: paper
     amount: 1
-    name: '&9&k&lL &b&l눈의 여왕의 &f&l스타킹 &c&o&n(교환권)&r &9&k&lL'
+    name: '&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l투구 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
+      - '&f[&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l투구 &r&1｡･&f:&1*&f˚&1:✧&f｡ &d&l&kL&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
@@ -185,17 +185,17 @@ items:
         fadeColors: [ 'GRAY' ]
         power: 0
       sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
-      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &f&l스타킹 &c&o&n(교환권)&r &9&k&lL &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l레깅스 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
 
   item6:
     item: paper
     amount: 1
-    name: '&9&k&lL &b&l눈의 여왕의 &f&l구두 &c&o&n(교환권)&r &9&k&lL'
+    name: '&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l흉갑 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
+      - '&f[&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l흉갑 &r&1｡･&f:&1*&f˚&1:✧&f｡ &d&l&kL&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
@@ -207,24 +207,20 @@ items:
         fadeColors: [ 'GRAY' ]
         power: 0
       sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
-      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &f&l구두 &c&o&n(교환권)&r &9&k&lL &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l흉갑 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
 
   item7:
     item: golden_helmet
     amount: 1
-    name: '&9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 &c&o&n(교환권)&r &6👑 &9&k&lL'
+    name: '&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l레깅스 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f'
     lore:
-      - '&f이 아이템은 &e&l&kL &d크&9리&d스&9마&d스 &f랜&9덤&f박&9스 &e&l&kL'
-      - '&f에서 드롭되었습니다!'
-      - '&l&f이 아이템은 &d크&9리&d스&9마&d스 &9한정판&f입니다!'
+      - '&f크리스마스 이벤트 상인으로부터'
+      - '&f[&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l레깅스 &r&1｡･&f:&1*&f˚&1:✧&f｡ &d&l&kL&f] 아이템으로'
+      - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
-    enchants:
-      protection: 7
-      mending: 1
-      unbreaking: 8
-      thorns: 2
+    addGlow: true
 
     dropEffect:
       firework:
@@ -233,17 +229,17 @@ items:
         fadeColors: [ 'GRAY' ]
         power: 0
       sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
-      broadcast: '&6%player%님이 &9&k&lL &b&l눈의 여왕의 &6&l왕관&r&6 👑 &c&o&n(교환권)&r &9&k&lL &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l레깅스 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f &f을 획득하셨습니다!!!'
     chance: 1
 
 
   item8:
     item: paper
     amount: 1
-    name: '&9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &c&o&n(교환권)&r &9&k&lL'
+    name: '&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l부츠 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f'
     lore:
       - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&f&k&lL &b&l영혼 &9&l지휘봉 &f&k&lL&r&f] 아이템으로'
+      - '&f[&d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l부츠 &r&1｡･&f:&1*&f˚&1:✧&f｡ &d&l&kL&f] 아이템으로'
       - '&f 교환하실 수 있습니다.'
       - '&f2024 Christmas Limited Edition'
     addGlow: true
@@ -255,7 +251,7 @@ items:
         fadeColors: [ 'GRAY' ]
         power: 0
       sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
-      broadcast: '&6%player%님이 &9&k&lL &a&l크리스마스 &b&l수호자&f&l의 &6&l방패 &c&o&n(교환권)&r &9&k&lL &f을 획득하셨습니다!!!'
+      broadcast: '&6%player%님이 &d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l부츠 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
     # Other drop item settings:

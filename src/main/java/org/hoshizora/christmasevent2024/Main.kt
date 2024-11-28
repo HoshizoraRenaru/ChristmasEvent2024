@@ -2,6 +2,7 @@ package org.hoshizora.christmasevent2024
 
 import org.bukkit.command.CommandExecutor
 import org.bukkit.plugin.java.JavaPlugin
+import org.hoshizora.christmasevent2024.mirroredarmor.MirroredArmorListener
 
 class Main : JavaPlugin(), CommandExecutor {
 
@@ -11,12 +12,13 @@ class Main : JavaPlugin(), CommandExecutor {
         logger.info("星空れなる｜HoshizoraRenaru EternaL Plugin")
         logger.info("Welcome to 2024 Christmas!")
 
-        server.pluginManager.registerEvents(SoulOverseerListener(this), this)
+        server.pluginManager.registerEvents(SpiritsOverseerListener(this), this)
         server.pluginManager.registerEvents(YoinoYoYoiListener(this), this)
         server.pluginManager.registerEvents(OtherworldlyWandererListener(this), this)
         experienceManager = ExperienceManager(this)
         server.pluginManager.registerEvents(ExperienceEventListener(experienceManager), this)
         server.pluginManager.registerEvents(MirroredChristmasDestroyerListener(this), this)
+        server.pluginManager.registerEvents(MirroredArmorListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()
