@@ -29,7 +29,7 @@ object MirroredHelmetItemManager {
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR, armorModifier)
 
         // 방어력 강도 설정
-        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD)
+        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD)
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, toughnessModifier)
 
         // 넉백 저항 설정
@@ -39,8 +39,7 @@ object MirroredHelmetItemManager {
         helmet.itemMeta = meta
 
         helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5)
-        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4)
-        helmet.addUnsafeEnchantment(Enchantment.DURABILITY, 10)
+        helmet.addUnsafeEnchantment(Enchantment.DURABILITY, 15)
         helmet.addUnsafeEnchantment(Enchantment.MENDING, 1)
         helmet.addUnsafeEnchantment(Enchantment.WATER_WORKER, 1)
         helmet.addUnsafeEnchantment(Enchantment.OXYGEN, 3)

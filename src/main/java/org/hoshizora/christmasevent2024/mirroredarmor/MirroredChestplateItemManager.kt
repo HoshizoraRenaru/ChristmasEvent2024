@@ -29,7 +29,7 @@ object MirroredChestplateItemManager {
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR, armorModifier)
 
         // 방어력 강도 설정
-        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST)
+        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST)
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, toughnessModifier)
 
         // 넉백 저항 설정
@@ -39,8 +39,7 @@ object MirroredChestplateItemManager {
         chestplate.itemMeta = meta
 
         chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5)
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 4)
-        chestplate.addUnsafeEnchantment(Enchantment.DURABILITY, 10)
+        chestplate.addUnsafeEnchantment(Enchantment.DURABILITY, 15)
         chestplate.addUnsafeEnchantment(Enchantment.MENDING, 1)
 
         return chestplate

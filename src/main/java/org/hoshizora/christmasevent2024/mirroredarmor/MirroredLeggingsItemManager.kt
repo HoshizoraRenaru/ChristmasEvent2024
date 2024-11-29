@@ -29,7 +29,7 @@ object MirroredLeggingsItemManager {
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR, armorModifier)
 
         // 방어력 강도 설정
-        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS)
+        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS)
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, toughnessModifier)
 
         // 넉백 저항 설정
@@ -39,8 +39,7 @@ object MirroredLeggingsItemManager {
         leggings.itemMeta = meta
 
         leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5)
-        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4)
-        leggings.addUnsafeEnchantment(Enchantment.DURABILITY, 10)
+        leggings.addUnsafeEnchantment(Enchantment.DURABILITY, 15)
         leggings.addUnsafeEnchantment(Enchantment.MENDING, 1)
         leggings.addUnsafeEnchantment(Enchantment.SWIFT_SNEAK, 3)
 
