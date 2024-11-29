@@ -18,18 +18,14 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
         val entity = event.entity
         if (entity is Player) {
             val player = entity
-
-            // 풀 세트 여부 확인
             val isFullSet = isFullSetEquipped(player)
 
-            // 풀 세트 착용 시 최대 체력 증가
             if (isFullSet) {
-                increaseMaxHealth(player, 8.0) // 하트 4칸 (8 체력) 증가
+                increaseMaxHealth(player, 8.0)
             } else {
-                resetMaxHealth(player) // 원래 체력으로 복구
+                resetMaxHealth(player)
             }
 
-            // 트루 데미지 감소 적용 (풀 세트와 상관없이 2부위 이상 착용 시)
             val wornArmorParts = countWornMirroredArmorParts(player)
             if (wornArmorParts >= 2) {
                 if (event.cause in listOf(
@@ -47,26 +43,22 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
         }
     }
 
-    // MirroredArmor 풀 세트 확인
     private fun isFullSetEquipped(player: Player): Boolean {
         val helmet = player.inventory.helmet
         val chestplate = player.inventory.chestplate
         val leggings = player.inventory.leggings
         val boots = player.inventory.boots
 
-        // 각 아이템이 MirroredArmor로 생성된 가죽 갑옷과 일치하는지 확인
         return helmet != null && isMirroredLeatherArmor(helmet) &&
                 chestplate != null && isMirroredLeatherArmor(chestplate) &&
                 leggings != null && isMirroredLeatherArmor(leggings) &&
                 boots != null && isMirroredLeatherArmor(boots)
     }
 
-    // MirroredArmor 가죽 갑옷 확인
     private fun isMirroredLeatherArmor(item: ItemStack): Boolean {
         if (!item.hasItemMeta()) return false
         val meta = item.itemMeta ?: return false
 
-        // 각 가죽 갑옷 아이템에 대해 이름과 lore를 비교
         return when (item.type) {
             Material.LEATHER_HELMET -> {
                 val mirroredHelmet = MirroredHelmetItemManager.create()
@@ -92,7 +84,6 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
         }
     }
 
-    // MirroredArmor 착용 부위 카운트
     private fun countWornMirroredArmorParts(player: Player): Int {
         val armorPieces = listOf(
             player.inventory.helmet,
@@ -103,7 +94,6 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
         return armorPieces.count { it != null && isMirroredLeatherArmor(it) }
     }
 
-    // 트루 데미지 감소 로직 (예시로 20% 감소)
     private fun applyTrueDamageReduction(damage: Double): Double {
         val reductionFactor = 0.8 // 20% 감소
         return damage * reductionFactor
@@ -122,7 +112,7 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
     private fun resetMaxHealth(player: Player) {
         val attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH)
         if (attribute != null) {
-            attribute.baseValue = 20.0 // 기본 체력으로 복구
+            attribute.baseValue = 20.0
             player.health = player.health.coerceAtMost(20.0)
         }
     }
@@ -131,7 +121,6 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
     fun onArmorChange(event: InventoryClickEvent) {
         val player = event.whoClicked
         if (player is Player) {
-            // 인벤토리 변경 후 다음 틱에 체력 업데이트를 수행
             plugin.server.scheduler.runTask(plugin, Runnable {
                 val isFullSet = isFullSetEquipped(player)
                 if (isFullSet) {
