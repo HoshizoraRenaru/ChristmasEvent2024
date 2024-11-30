@@ -13,7 +13,7 @@ object OtherworldlyWandererItemManager {
         val meta: ItemMeta? = hoe.itemMeta
 
         meta?.let {
-            it.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL&f"))
+            it.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l이계의 &f&l방랑자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f"))
             it.lore = listOf(
                 "",
                 "${ChatColor.GOLD}스킬: ${ChatColor.of("#3500ba")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}이${ChatColor.of("#370fcb")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}계${ChatColor.of("#3a1fdc")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}의 ${ChatColor.of("#3c2fed")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}워${ChatColor.BLUE}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}프${ChatColor.RESET}${ChatColor.WHITE}${ChatColor.BOLD} ⚝${ChatColor.YELLOW}${ChatColor.BOLD} RIGHT CLICK",

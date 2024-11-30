@@ -23,11 +23,11 @@ class DevCommand : CommandExecutor {
                         }
                         args[0].equals("OtherworldlyWanderer", ignoreCase = true) -> {
                             sender.inventory.addItem(OtherworldlyWandererItemManager.createOtherworldlyWanderer())
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l이계의 &f&l방랑자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL &r&f[Christmas 2024] has been given."))
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l이계의 &f&l방랑자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f &r&f[Christmas 2024] has been given."))
                         }
                         args[0].equals("MirroredChristmasDestroyer", ignoreCase = true) -> {
-                            sender.inventory.addItem(MirroredChristmasDestroyerItemManager.createMirroredChristmasDestroyer())
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&f➶&9-͙&f˚&9 ༘&f✶ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･:*&f˚&9:✧&f｡ &5&l&kL &r&f[Christmas 2024] has been given."))
+                            sender.inventory.addItem(ReflectedChristmasDestroyerItemManager.createMirroredChristmasDestroyer())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l반사된 &d&l크&9&l리&d&l스&9&l마&d&l스 &d&l파괴자 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f &r&f[Christmas 2024] has been given."))
                         }
                         args[0].equals("MirroredArmor", ignoreCase = true) -> {
                             sender.inventory.addItem(MirroredHelmetItemManager.create())
@@ -35,6 +35,10 @@ class DevCommand : CommandExecutor {
                             sender.inventory.addItem(MirroredLeggingsItemManager.create())
                             sender.inventory.addItem(MirroredBootsItemManager.create())
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &d&l&kL &r&f➶&1-͙&f˚&1 ༘&f✶ &9&l거울상 &f&l갑옷 &r&1｡･:*&f˚&1:✧&f｡ &d&l&kL&f &r&f[Christmas 2024] has been given."))
+                        }
+                        args[0].equals("DarkDeerBow", ignoreCase = true) -> {
+                            sender.inventory.addItem(DarkDeerBowItemManager.createDarkDeerBow())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l검은 순록 &f&l활 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f &r&f[Christmas 2024] has been given."))
                         }
                         else -> {
                             sender.sendMessage("${ChatColor.RED}Invalid argument!")

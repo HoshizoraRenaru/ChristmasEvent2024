@@ -17,8 +17,9 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(OtherworldlyWandererListener(this), this)
         experienceManager = ExperienceManager(this)
         server.pluginManager.registerEvents(ExperienceEventListener(experienceManager), this)
-        server.pluginManager.registerEvents(MirroredChristmasDestroyerListener(this), this)
+        server.pluginManager.registerEvents(ReflectedChristmasDestroyerListener(this), this)
         server.pluginManager.registerEvents(MirroredArmorListener(this), this)
+        server.pluginManager.registerEvents(DarkDeerBowListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()

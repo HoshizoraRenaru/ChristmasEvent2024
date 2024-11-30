@@ -15,16 +15,16 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.hoshizora.christmasevent2024.mirroredarmor.*
 import java.util.*
 
-class MirroredChristmasDestroyerListener(private val plugin: JavaPlugin) : Listener {
+class ReflectedChristmasDestroyerListener(private val plugin: JavaPlugin) : Listener {
     private val activeShields = mutableMapOf<UUID, Long>()
     private val cooldowns = mutableMapOf<UUID, Long>()
 
     private fun isMirroredChristmasDestroyer(item: ItemStack?): Boolean {
         if (item == null || !item.hasItemMeta()) return false
         val meta = item.itemMeta ?: return false
-        return meta.displayName == MirroredChristmasDestroyerItemManager.createMirroredChristmasDestroyer().itemMeta?.displayName &&
-                meta.lore == MirroredChristmasDestroyerItemManager.createMirroredChristmasDestroyer().itemMeta?.lore &&
-                item.type == MirroredChristmasDestroyerItemManager.createMirroredChristmasDestroyer().type
+        return meta.displayName == ReflectedChristmasDestroyerItemManager.createMirroredChristmasDestroyer().itemMeta?.displayName &&
+                meta.lore == ReflectedChristmasDestroyerItemManager.createMirroredChristmasDestroyer().itemMeta?.lore &&
+                item.type == ReflectedChristmasDestroyerItemManager.createMirroredChristmasDestroyer().type
     }
 
     init {
