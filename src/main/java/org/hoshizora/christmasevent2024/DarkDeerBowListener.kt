@@ -1,34 +1,56 @@
 package org.hoshizora.christmasevent2024
 
+import net.md_5.bungee.api.ChatColor
 import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.Particle
+import org.bukkit.Sound
 import org.bukkit.entity.AbstractArrow
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 
 class DarkDeerBowListener(private val plugin: JavaPlugin) : Listener {
 
     private val playerLastFireTime = mutableMapOf<Player, Long>()
+
+    private fun isDarkDeerBow(item: ItemStack?): Boolean {
+        if (item == null || !item.hasItemMeta()) return false
+        val meta = item.itemMeta ?: return false
+        return meta.displayName == DarkDeerBowItemManager.createDarkDeerBow().itemMeta?.displayName &&
+                meta.lore == DarkDeerBowItemManager.createDarkDeerBow().itemMeta?.lore &&
+                item.type == Material.BOW
+    }
+
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
         val item = player.inventory.itemInMainHand
 
-        if (item.type == Material.BOW && event.action.name.contains("LEFT_CLICK")) {
+        if (isDarkDeerBow(item) && event.action.name.contains("LEFT_CLICK")) {
             val currentTime = System.currentTimeMillis()
 
             if (playerLastFireTime[player] == null || currentTime - playerLastFireTime[player]!! >= 500) {
                 playerLastFireTime[player] = currentTime
 
-                fireArrow(player)
+                if (player.totalExperience >= 5) {
+                    player.giveExp(-5)
+                    object : BukkitRunnable() {
+                        override fun run() {
+                            fireArrow(player)
+                        }
+                    }.runTaskLater(plugin, 2L)
+                } else {
+                    player.sendMessage("${ChatColor.RED}경험치가 부족합니다!")
+                }
             }
         }
     }
+
 
     private fun fireArrow(player: Player) {
         val arrows = player.inventory.contents.filter { it != null && it.type == Material.ARROW }
@@ -39,6 +61,7 @@ class DarkDeerBowListener(private val plugin: JavaPlugin) : Listener {
             startParticleEffect(arrow)
 
             player.inventory.removeItem(org.bukkit.inventory.ItemStack(Material.ARROW, 1))
+            player.playSound(player.location, Sound.BLOCK_AMETHYST_BLOCK_STEP, 1F, 0.1F)
         }
     }
 

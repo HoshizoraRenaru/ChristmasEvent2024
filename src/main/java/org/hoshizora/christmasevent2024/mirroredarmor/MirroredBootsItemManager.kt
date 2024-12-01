@@ -23,24 +23,22 @@ object MirroredBootsItemManager {
             "${ChatColor.GOLD}효과:",
             "${ChatColor.AQUA}적의 True Damage를 1 감소"
         )
-        meta.setColor(Color.fromRGB(174, 0, 255)) // 색상 설정
+        meta.setColor(Color.fromRGB(174, 0, 255))
 
-        // 방어력 설정 (네더라이트 부츠와 동일)
         val armorModifier = AttributeModifier(UUID.randomUUID(), "generic.armor", 3.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET)
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR, armorModifier)
 
-        // 방어력 강도 설정 (네더라이트 부츠와 동일)
-        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET)
+        val toughnessModifier = AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 1.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET)
         meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, toughnessModifier)
 
-        // 넉백 저항 설정 (네더라이트 갑옷의 특성)
         val knockbackResistanceModifier = AttributeModifier(UUID.randomUUID(), "generic.knockback_resistance", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET)
         meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, knockbackResistanceModifier)
 
+        meta.isUnbreakable = true
         boots.itemMeta = meta
 
         boots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5)
-        boots.addUnsafeEnchantment(Enchantment.DURABILITY, 15)
+        boots.addUnsafeEnchantment(Enchantment.DURABILITY, 10)
         boots.addUnsafeEnchantment(Enchantment.MENDING, 1)
         boots.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 5)
         boots.addUnsafeEnchantment(Enchantment.SOUL_SPEED, 3)

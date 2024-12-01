@@ -16,11 +16,9 @@ object DarkDeerBowItemManager {
             it.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l검은 순록 &f&l활 &r&9｡･&f:&9*&f˚&9:✧&f｡ &5&l&kL&f"))
             it.lore = listOf(
                 "",
-                "${ChatColor.GOLD}특징: ${ChatColor.of("#000000")}${ChatColor.BOLD}${ChatColor.ITALIC}좌클릭으로 화살 발사",
-                "${ChatColor.RESET}${ChatColor.GRAY}인벤토리에서 화살 확인 후 발사.",
-                "${ChatColor.RESET}${ChatColor.GRAY}화살 없으면 메세지 출력.",
-                "${ChatColor.GOLD}인챈트 ${ChatColor.RED}힘 ${ChatColor.GRAY}레벨에 따라 데미지 증가.",
-                "${ChatColor.RESET}${ChatColor.YELLOW}0.5초 간격으로 발사 가능."
+                "${ChatColor.GOLD}스킬: ${ChatColor.of("#2a02be")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}S${ChatColor.of("#2d0ac7")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}h${ChatColor.of("#3013d0")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}o${ChatColor.of("#331cd9")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}r${ChatColor.of("#3624e2")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}t${ChatColor.of("#392deb")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}b${ChatColor.of("#3c36f4")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}o${ChatColor.of("blue")}${ChatColor.BOLD}${ChatColor.ITALIC}${ChatColor.UNDERLINE}w${ChatColor.RESET}${ChatColor.WHITE}${ChatColor.BOLD} ⚝${ChatColor.YELLOW}${ChatColor.BOLD} LEFT CLICK",
+                "${ChatColor.RESET}${ChatColor.YELLOW}5 ${ChatColor.GRAY}경험치를 소모하여 화살을 즉시 발사한다.",
+                "${ChatColor.GRAY}쿨다운: ${ChatColor.GREEN}0.5초",
             )
             bow.itemMeta = it
         }

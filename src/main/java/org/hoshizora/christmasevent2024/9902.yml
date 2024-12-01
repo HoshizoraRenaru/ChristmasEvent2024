@@ -154,7 +154,7 @@ items:
         fadeColors: ['GRAY']
         power: 0
       sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&f%player%님이 &d크&9리&d스&9마&d스&f의 &5악몽을 획득하셨습니다!!!'
+      broadcast: '&f%player%님이 &d크&9리&d스&9마&d스&f의 &5악몽&f을 획득하셨습니다!!!'
     chance: 10
 
 
