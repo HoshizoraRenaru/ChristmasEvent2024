@@ -1,0 +1,448 @@
+# The full documentation is at https://dev.bukkit.org/projects/random_box/pages/main/documentation
+# This is the 1.13+ version of the default box
+
+boxItem: LEATHER_BOOTS
+
+boxName: '&a&l&kL &c크리스마스 &f양말 &a&l&kL'
+
+lore:
+  - '&fMerry &cChristmas&f!'
+  - '&f행복하고 즐거운 크리스마스 되세요!'
+  - '&7──────────────'
+  - 'items 0 &7%ordinal%. &ex%amount% %name%'
+  - '&7──────────────'
+  - '&c크리스마스 &f양말'
+
+addGlow: true
+nbtTag: '{display:{color:16711680},Trim:{material:"minecraft:quartz",pattern:"minecraft:tide"}}'
+
+# CustomModelData tag, which will be added to the box item.
+# This setting will be ignored on versions lower than 1.14.
+# You can remove this setting, so no data will be set.
+customModelData: 123
+
+# Other box item settings:
+# - texture (base64 texture for player heads)
+# - nbtTag (arbitrary NBT tag, as used in /give command)
+# See https://minecraft.gamepedia.com/Tutorials/Command_NBT_tags#Items
+
+unstackable: true
+
+checkPermission: false
+
+openWhenClicked: true
+
+itemsToSelectCount: 3
+
+# List of limits: each limit specifies how frequently players can open this box.
+# You can set different limits for different players, detected by permission.
+limits:
+  # Interval specifies minimum time between box openings.
+  # Available time units: s (sec), m (min), h (hours), d (days).
+  - interval: 1m
+    # Message that is sent when player tries to open a box too fast.
+    # You can localize time units in the placeholder, for example (Russian): %remains[с.,м.,ч.,д.]%
+    message: '&cYou can open this box only after %remains[s.,m.,h.,day(s)]%!'
+    permissions:
+      # Permission that is required in order for this limit to work.
+      # If player does not have this permission, limit will not be checked.
+      # If not specified, the limit will be checked for any player.
+      check: 'some.permission.to.check'
+      # Permission for bypassing the limit.
+      # If not specified, the limit can't be bypassed even by OPs.
+      bypass: 'some.permission.to.bypass'
+
+gui:
+  enabled: true
+  rolling:
+    - {period: 1, iterations: 50}
+    - {period: 2, iterations: 20}
+    - {period: 3, iterations: 10}
+    - {period: 4, iterations: 5}
+  window:
+    type: CHEST
+    format:
+      - '@@@###@@@'
+      - 'abcDEFghi'
+      - '@@@###@@@'
+    fillers:
+      '@':
+        item: {id: WHITE_STAINED_GLASS_PANE, period: 20}
+        onStop:
+          item: {id: AIR}
+      '#':
+        animated:
+          - {id: RED_STAINED_GLASS_PANE, period: 10}
+          - {id: WHITE_STAINED_GLASS_PANE, period: 10}
+
+effects:
+  open:
+    firework:
+      type: BALL_LARGE
+      colors: ['#FF0000', 'WHITE', 'RED']
+      fadeColors: ['GRAY', 'BLACK']
+      flicker: true
+      trail: false
+      power: 3
+    sound:
+      sound: BLOCK_CHEST_OPEN
+      volume: 1.0
+      pitch: 1.0
+    broadcast: '&f%player%님이 &c조금 수상합니다&f!'
+  move:
+    sound: {sound: UI_BUTTON_CLICK}
+  drop:
+    sound: {sound: BLOCK_ANVIL_LAND}
+    firework:
+      type: STAR
+      colors: ['WHITE']
+  close:
+    sound: {sound: BLOCK_CHEST_CLOSE}
+
+items:
+  item1:
+    item: DIAMOND_SWORD
+    data: 0
+    amount: 1
+    name: '&d달달한 &f다이아몬드 검'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    # CustomModelData tag, which will be added to the dropped item.
+    # This setting will be ignored on versions lower than 1.14.
+    # You can remove this setting, so no data will be set.
+    customModelData: 123
+    enchants:
+      sharpness: 6
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'GREEN']
+        fadeColors: ['GRAY']
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 다이아몬드 검 &f을 획득하셨습니다.'
+    chance: 1
+
+  item2:
+    item: DIAMOND_PICKAXE
+    data: 0
+    amount: 1
+    name: '&d달달한 &f다이아몬드 곡괭이'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      efficiency: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 다이아몬드 헬멧 &f을 획득하셨습니다.'
+    chance: 1
+
+  item3:
+    item: DIAMOND_HELMET
+    data: 0
+    amount: 1
+    name: '&d달달한 &f다이아몬드 헬멧'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 다이아몬드 헬멧 &f을 획득하셨습니다.'
+    chance: 1
+
+  item4:
+    item: DIAMOND_CHESTPLATE
+    data: 0
+    amount: 1
+    name: '&d달달한 &f다이아몬드 흉갑'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 다이아몬드 흉갑 &f을 획득하셨습니다.'
+    chance: 1
+
+  item5:
+    item: DIAMOND_LEGGINGS
+    data: 0
+    amount: 1
+    name: '&d달달한 &f다이아몬드 레깅스'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 다이아몬드 레깅스 &f을 획득하셨습니다.'
+    chance: 1
+
+  item6:
+    item: DIAMOND_BOOTS
+    data: 0
+    amount: 1
+    name: '&d달달한 &f다이아몬드 부츠'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 다이아몬드 부츠 &f을 획득하셨습니다.'
+    chance: 1
+
+  item7:
+    item: IRON_SWORD
+    data: 0
+    amount: 1
+    name: '&d달달한 &f철 검'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      sharpness: 6
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 철 검 &f을 획득하셨습니다.'
+    chance: 2
+
+  item8:
+    item: IRON_PICKAXE
+    data: 0
+    amount: 1
+    name: '&d달달한 &f철 공괭이'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      efficiency: 5
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 철 곡괭이 &f을 획득하셨습니다.'
+    chance: 2
+
+  item9:
+    item: IRON_HELMET
+    data: 0
+    amount: 1
+    name: '&d달달한 &f철 헬멧'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 철 헬멧 &f을 획득하셨습니다.'
+    chance: 2
+
+  item10:
+    item: IRON_CHESTPLATE
+    data: 0
+    amount: 1
+    name: '&d달달한 &f철 흉갑'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 철 흉갑 &f을 획득하셨습니다.'
+    chance: 2
+
+  item11:
+    item: IRON_LEGGINGS
+    data: 0
+    amount: 1
+    name: '&d달달한 &f철 레깅스'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 철 레깅스 &f을 획득하셨습니다.'
+    chance: 2
+
+  item12:
+    item: IRON_BOOTS
+    data: 0
+    amount: 1
+    name: '&d달달한 &f철 부츠'
+    lore:
+      - ''
+      - '&f이 아이템은 &a&l&kL &c크리스마스 &f양말 &a&l&kL'
+      - '&f에서 드롭되었습니다!'
+      - '&l&f이 아이템은 &f크리스마스 &c한정판&f입니다!'
+      - '&f2024 Christmas Limited Edition'
+    customModelData: 123
+    enchants:
+      protection: 3
+      unbreaking: 4
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'RED', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      broadcast: '&f%player%님이 수상한 곳에서 &d달달한 철 부츠 &f을 획득하셨습니다.'
+    chance: 2
+
+  item13:
+    commands:
+      command1:
+        line: 'xp add %player% 6 levels'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXPERIENCE_BOTTLE
+    name: '&c크리스마스 &f경험치(6)'
+    amount: 1
+    chance: 20
+  item14:
+    commands:
+      command1:
+        line: 'xp add %player% 4 levels'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXPERIENCE_BOTTLE
+    name: '&c크리스마스 &f경험치(4)'
+    amount: 1
+    chance: 25
+  item15:
+    commands:
+      command1:
+        line: 'xp add %player% 3 levels'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXPERIENCE_BOTTLE
+    name: '&c크리스마스 &f경험치(3)'
+    amount: 1
+    chance: 40
+  item16:
+    item: GUNPOWDER
+    name: '&f화약'
+    dontAssignName: true
+    amount: 2-10
+    chance: 5
+  item17:
+    item: DIAMOND
+    name: '&f다이아몬드'
+    dontAssignName: true
+    amount: 1-3
+    chance: 5
+  item18:
+    item: IRON_INGOT
+    name: '&f철 주괴'
+    dontAssignName: true
+    amount: 1-5
+    chance: 10
+  item20:
+    item: GOLD_INGOT
+    name: '&f금 주괴'
+    dontAssignName: true
+    amount: 1-5
+    chance: 10

@@ -28,7 +28,7 @@ object ReflectedChristmasDestroyerItemManager {
 
         // 인챈트 추가
         sword.addUnsafeEnchantment(Enchantment.MENDING, 1)
-        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 7)
+        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8)
         sword.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3)
         sword.addUnsafeEnchantment(Enchantment.DURABILITY, 3)
         sword.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 3)
