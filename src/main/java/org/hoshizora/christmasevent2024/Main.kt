@@ -20,6 +20,10 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(ReflectedChristmasDestroyerListener(this), this)
         server.pluginManager.registerEvents(MirroredArmorListener(this), this)
         server.pluginManager.registerEvents(DarkDeerBowListener(this), this)
+        server.pluginManager.registerEvents(PurpleIceListener(this), this)
+        server.pluginManager.registerEvents(SugarBlockListener(this), this)
+        server.pluginManager.registerEvents(CaramelListener(this), this)
+        server.pluginManager.registerEvents(SantasTradeSecretListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()
@@ -36,6 +40,10 @@ class Main : JavaPlugin(), CommandExecutor {
         getCommand("checkexp")?.apply {
             setExecutor(CheckExpCommand())
         }
+
+        PurpleIceRecipe(this).register()
+        SugarBlockRecipe(this).register()
+        CaramelRecipe(this).register()
     }
 
     override fun onDisable() {

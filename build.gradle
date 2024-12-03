@@ -8,6 +8,9 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs' // libs 폴더를 로컬 저장소로 설정
+    }
     maven {
         name = "spigotmc-repo"
         url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
@@ -26,6 +29,7 @@ dependencies {
 compileOnly "org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compileOnly "net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT"
+    compileOnly "com.mojang:authlib:3.13.56"
 }
 
 def targetJavaVersion = 17
@@ -57,5 +61,5 @@ kotlin {
 }
 
 jar {
-    destinationDirectory = file("D:\\Lotar_YT\\Minecraft Servers\\EternaL_HOSHI\\plugins")
+    destinationDirectory = file("D:\\Lotar_YT\\Minecraft Servers\\LostaR PvP Survival_EternaL\\plugins")
 }

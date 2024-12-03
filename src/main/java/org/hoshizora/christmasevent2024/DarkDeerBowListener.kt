@@ -6,11 +6,14 @@ import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.AbstractArrow
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
 
@@ -51,17 +54,20 @@ class DarkDeerBowListener(private val plugin: JavaPlugin) : Listener {
         }
     }
 
-
     private fun fireArrow(player: Player) {
         val arrows = player.inventory.contents.filter { it != null && it.type == Material.ARROW }
 
         if (arrows.isNotEmpty()) {
             val arrow = player.launchProjectile(AbstractArrow::class.java)
             arrow.velocity = player.location.direction.multiply(3.0)
+            arrow.damage = 8.0
+
+            arrow.setMetadata("DarkDeerBowArrow", FixedMetadataValue(plugin, true))
+
             startParticleEffect(arrow)
 
             player.inventory.removeItem(org.bukkit.inventory.ItemStack(Material.ARROW, 1))
-            player.playSound(player.location, Sound.BLOCK_AMETHYST_BLOCK_STEP, 1F, 0.1F)
+            player.playSound(player.location, Sound.BLOCK_AMETHYST_BLOCK_STEP, 2F, 0.1F)
         }
     }
 
@@ -89,5 +95,21 @@ class DarkDeerBowListener(private val plugin: JavaPlugin) : Listener {
                 )
             }
         }.runTaskTimer(plugin, 0L, 1L)
+    }
+
+    @EventHandler
+    fun onProjectileHit(event: ProjectileHitEvent) {
+        val projectile = event.entity
+        if (projectile is AbstractArrow && projectile.shooter is Player && projectile.hasMetadata("DarkDeerBowArrow")) {
+            val hitEntity = event.hitEntity
+            if (hitEntity is LivingEntity) {
+                val shooter = projectile.shooter as Player
+                playHitSound(shooter)
+            }
+        }
+    }
+
+    private fun playHitSound(player: Player) {
+        player.playSound(player.location, Sound.ENTITY_ARROW_HIT_PLAYER, 1f, 0.8f)
     }
 }

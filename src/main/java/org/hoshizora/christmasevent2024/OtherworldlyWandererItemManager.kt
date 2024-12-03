@@ -30,7 +30,6 @@ object OtherworldlyWandererItemManager {
             hoe.itemMeta = it
         }
 
-        // 인챈트 추가
         hoe.addUnsafeEnchantment(Enchantment.MENDING, 1)
         hoe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 14)
         hoe.addUnsafeEnchantment(Enchantment.DURABILITY, 3)

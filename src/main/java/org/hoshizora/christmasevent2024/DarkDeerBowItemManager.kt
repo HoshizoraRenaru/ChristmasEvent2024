@@ -23,10 +23,10 @@ object DarkDeerBowItemManager {
             bow.itemMeta = it
         }
 
-        // 인챈트 추가
         bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 5)
         bow.addUnsafeEnchantment(Enchantment.DURABILITY, 3)
         bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1)
+        bow.addUnsafeEnchantment(Enchantment.MENDING, 1)
 
         return bow
     }
