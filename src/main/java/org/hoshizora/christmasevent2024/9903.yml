@@ -254,5 +254,25 @@ items:
       broadcast: '&6%player%님이 &d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l거울상 &f&l부츠 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &d&l&kL&f &f을 획득하셨습니다!!!'
     chance: 2
 
+  item9:
+    item: paper
+    amount: 1
+    name: '&f&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l산타의 &5&l영업 &d&l기밀 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &f&l&kL&f'
+    lore:
+      - '&f크리스마스 이벤트 상인으로부터'
+      - '&f[&f&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l산타의 &5&l영업 &d&l기밀 &r&1｡･&f:&1*&f˚&1:✧&f｡ &f&l&kL&f] 아이템으로'
+      - '&f 교환하실 수 있습니다.'
+      - '&f2024 Christmas Limited Edition'
+    addGlow: true
+
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: [ 'WHITE', 'BLUE', 'GREEN' ]
+        fadeColors: [ 'GRAY' ]
+        power: 0
+      sound: { sound: ENTITY_ENDER_DRAGON_DEATH }
+      broadcast: '&6%player%님이 &f&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l산타의 &5&l영업 &d&l기밀 &r&1｡･&f:&1*&f˚&1:✧&f｡ &c&o&n(교환권)&r &f&l&kL&f &f을 획득하셨습니다!!!'
+    chance: 2
     # Other drop item settings:
     # - nbtTag (arbitrary NBT tag, as used in /give command)

@@ -15,7 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable
 class SantasTradeSecretListener(private val plugin: JavaPlugin) : Listener {
     private val cooldowns = mutableMapOf<UUID, Long>()
 
-    // 아이템이 '산타의 영업 기밀' 인지 체크하는 함수
     private fun isSantasTradeSecrets(item: ItemStack?): Boolean {
         if (item == null || !item.hasItemMeta()) return false
         val meta = item.itemMeta ?: return false
@@ -55,13 +54,11 @@ class SantasTradeSecretListener(private val plugin: JavaPlugin) : Listener {
         val location = player.location.add(0.0, 1.0, 0.0)
         player.world.spawnParticle(Particle.WAX_OFF, player.location.add(0.0, 1.0, 0.0), 60, 1.0, 1.0, 1.0, 0.5)
         val color = Color.fromRGB(25, 1, 88)
-        val dustOptions = Particle.DustOptions(color, 1.0f) // DustOptions 생성 시 색상 지정
+        val dustOptions = Particle.DustOptions(color, 1.0f)
         player.world.spawnParticle(Particle.REDSTONE, player.location.add(0.0, 1.0, 0.0), 100, 1.0, 1.0, 1.0, 0.5, dustOptions)
     }
 
 
-
-    // 우클릭 이벤트 처리
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
