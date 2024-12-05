@@ -4,7 +4,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.RecipeChoice
-import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.inventory.ShapelessRecipe
 import org.bukkit.plugin.java.JavaPlugin
 
 class CaramelRecipe(private val plugin: JavaPlugin) {
@@ -13,10 +13,9 @@ class CaramelRecipe(private val plugin: JavaPlugin) {
         val caramel = CaramelItemManager.createCaramel()
         val key = NamespacedKey(plugin, "caramel")
 
-        val recipe = ShapedRecipe(key, caramel).apply {
-            shape("SSS", "SHS", "SSS")
-            setIngredient('S', RecipeChoice.ExactChoice(SugarBlockItemManager.createSugarBlock()))
-            setIngredient('H', Material.HONEY_BOTTLE)
+        val recipe = ShapelessRecipe(key, caramel).apply {
+            addIngredient(RecipeChoice.ExactChoice(SugarBlockItemManager.createSugarBlock()))
+            addIngredient(Material.HONEY_BOTTLE)
         }
 
         Bukkit.addRecipe(recipe)
