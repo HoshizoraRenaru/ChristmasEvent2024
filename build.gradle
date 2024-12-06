@@ -61,5 +61,5 @@ kotlin {
 }
 
 jar {
-    destinationDirectory = file("D:\\Lotar_YT\\Minecraft Servers\\LostaR PvP Survival_EternaL\\plugins")
+    destinationDirectory = file("D:\\Lotar_YT\\Minecraft Servers\\EternaL_HOSHI\\plugins")
 }

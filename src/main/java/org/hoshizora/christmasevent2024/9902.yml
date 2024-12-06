@@ -99,39 +99,6 @@ effects:
     sound: {sound: BLOCK_CHEST_CLOSE}
 
 items:
-  item1:
-    item: paper
-    data: 0
-    amount: 1
-    name: '&d&k&lL&r&d🌸🍀 &c&l宵の&4&l余、&e&l良い！ &c&o&n(교환권)&r &r&d🍀🌸&d&k&lL'
-    lore:
-      - ''
-      - '&f크리스마스 이벤트 상인으로부터'
-      - '&f[&d&k&lL&r&d🌸🍀 &c&l宵の&4&l余、&e&l良い！ &r&d🍀🌸&d&k&lL] 아이템으로'
-      - '&f 교환하실 수 있습니다.'
-      - '&f2024 Christmas Limited Edition'
-    # CustomModelData tag, which will be added to the dropped item.
-    # This setting will be ignored on versions lower than 1.14.
-    # You can remove this setting, so no data will be set.
-    customModelData: 123
-    enchants:
-      sharpness: 7
-      unbreaking: 5
-      fire: 3
-      mending: 1
-      sweeping: 3
-      looting: 3
-
-    dropEffect:
-      firework:
-        type: BALL_LARGE
-        colors: ['RED', 'GREEN']
-        fadeColors: ['GRAY']
-        power: 0
-      sound: {sound: ENTITY_ENDER_DRAGON_DEATH}
-      broadcast: '&6%player%님이 &d&k&lL&r&d🌸🍀 &c&l宵の&4&l余、&e&l良い！ &c&o&n(교환권)&r &r&d🍀🌸&d&k&lL &f을 획득하셨습니다!!!'
-    chance: 1
-
 
   item2:
     item: stone_hoe

@@ -21,7 +21,11 @@ object ReflectedChristmasDestroyerItemManager {
                 "${ChatColor.RESET}${ChatColor.GRAY}적용한다. 쉴드 상태에서 받은 근접 공격 피해를",
                 "${ChatColor.RESET}${ChatColor.GRAY}공격자에게 반사한다. 1회 반사 후 쉴드는 파괴된다.",
                 "${ChatColor.GRAY}쿨다운: ${ChatColor.GREEN}15초",
-                ""
+                "",
+                "${ChatColor.WHITE}이 아이템은 ${ChatColor.YELLOW}${ChatColor.BOLD}${ChatColor.MAGIC}L ${ChatColor.LIGHT_PURPLE}크${ChatColor.BLUE}리${ChatColor.LIGHT_PURPLE}스${ChatColor.BLUE}마${ChatColor.LIGHT_PURPLE}스 ${ChatColor.WHITE}랜${ChatColor.BLUE}덤${ChatColor.WHITE}박${ChatColor.BLUE}스 ${ChatColor.YELLOW}${ChatColor.BOLD}${ChatColor.MAGIC}L",
+                "${ChatColor.WHITE}에서 드롭되었습니다!",
+                "${ChatColor.BOLD}${ChatColor.WHITE}이 아이템은 ${ChatColor.LIGHT_PURPLE}크${ChatColor.BLUE}리${ChatColor.LIGHT_PURPLE}스${ChatColor.BLUE}마${ChatColor.LIGHT_PURPLE}스 ${ChatColor.BLUE}한정판${ChatColor.WHITE}입니다!",
+                "${ChatColor.WHITE}2024 Christmas Limited Edition"
             )
             sword.itemMeta = it
         }

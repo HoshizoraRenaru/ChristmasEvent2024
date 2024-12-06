@@ -24,6 +24,10 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(SugarBlockListener(this), this)
         server.pluginManager.registerEvents(CaramelListener(this), this)
         server.pluginManager.registerEvents(SantasTradeSecretListener(this), this)
+        server.pluginManager.registerEvents(EndOfFairytaleListener(this), this)
+        server.pluginManager.registerEvents(SophisticatedAmethystListener(this), this)
+        server.pluginManager.registerEvents(CaramelBoxListener(this), this)
+        server.pluginManager.registerEvents(ReflectiveStoneListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()
@@ -44,6 +48,7 @@ class Main : JavaPlugin(), CommandExecutor {
         PurpleIceRecipe(this).register()
         SugarBlockRecipe(this).register()
         CaramelRecipe(this).register()
+        SophisticatedAmethystRecipe(this).register()
     }
 
     override fun onDisable() {

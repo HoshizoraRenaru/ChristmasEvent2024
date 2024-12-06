@@ -25,7 +25,12 @@ object OtherworldlyWandererItemManager {
                 "${ChatColor.RESET}${ChatColor.GREEN}5초 ${ChatColor.GRAY}이내에 동일한 적을 ${ChatColor.YELLOW}3번 ${ChatColor.GRAY}이상 타격시,",
                 "${ChatColor.RED}신속 1${ChatColor.GRAY}과 ${ChatColor.RED}힘 1${ChatColor.GRAY}효과를 ${ChatColor.GREEN}10초${ChatColor.GRAY}간 부여한다.",
                 "${ChatColor.GREEN}15초 ${ChatColor.GRAY}이내 다른 타격이 없을 시 콤보는 ",
-                "${ChatColor.GRAY}초기화된다."
+                "${ChatColor.GRAY}초기화된다.",
+                "",
+                "${ChatColor.WHITE}이 아이템은 ${ChatColor.YELLOW}${ChatColor.BOLD}${ChatColor.MAGIC}L ${ChatColor.LIGHT_PURPLE}크${ChatColor.BLUE}리${ChatColor.LIGHT_PURPLE}스${ChatColor.BLUE}마${ChatColor.LIGHT_PURPLE}스 ${ChatColor.WHITE}랜${ChatColor.BLUE}덤${ChatColor.WHITE}박${ChatColor.BLUE}스 ${ChatColor.YELLOW}${ChatColor.BOLD}${ChatColor.MAGIC}L",
+                "${ChatColor.WHITE}에서 드롭되었습니다!",
+                "${ChatColor.BOLD}${ChatColor.WHITE}이 아이템은 ${ChatColor.LIGHT_PURPLE}크${ChatColor.BLUE}리${ChatColor.LIGHT_PURPLE}스${ChatColor.BLUE}마${ChatColor.LIGHT_PURPLE}스 ${ChatColor.BLUE}한정판${ChatColor.WHITE}입니다!",
+                "${ChatColor.WHITE}2024 Christmas Limited Edition"
             )
             hoe.itemMeta = it
         }

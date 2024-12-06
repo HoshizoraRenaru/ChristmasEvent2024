@@ -48,6 +48,18 @@ class DevCommand : CommandExecutor {
                             sender.inventory.addItem(SantasTradeSecretItemManager.createSantasTradeSecrets())
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &d&l&kL &r&1｡&f✧&1:&f˚&1*:&f･｡ &9&l산타의 &5&l영업 &d&l기밀 &r&1｡･&f:&1*&f˚&1:✧&f｡ &d&l&kL&f &r&f[Christmas 2024] has been given."))
                         }
+                        args[0].equals("EndOfFairytale", ignoreCase = true) -> {
+                            sender.inventory.addItem(EndOfFairytaleItemManager.createEndOfFairytale())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &f&l&kL &r&9｡&f✧&9:&f˚&9*:&f･｡ &1&l동화의 &5&l결말 &r&9｡･&f:&9*&f˚&9:✧&f｡ &f&l&kL&f &r&f[Christmas 2024] has been given."))
+                        }
+                        args[0].equals("CaramelBox", ignoreCase = true) -> {
+                            sender.inventory.addItem(CaramelBoxItemManager.createCaramelBox())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &5캐러멜 &6박스 &r&f[Christmas 2024] has been given."))
+                        }
+                        args[0].equals("ReflectiveStone", ignoreCase = true) -> {
+                            sender.inventory.addItem(ReflectiveStoneItemManager.createReflectiveStone())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &f&l&kL &d크&9리&d스&9마&d스&f의 빛나는 &r&1&l반${ChatColor.of("#1f1fde")}&l사&9&석 &f&l&kL &r&f[Christmas 2024] has been given."))
+                        }
                         else -> {
                             sender.sendMessage("${ChatColor.RED}Invalid argument!")
                         }
