@@ -185,17 +185,6 @@ class SpiritsOverseerListener(private val plugin: Main) : Listener {
                     org.bukkit.Particle.DustOptions(org.bukkit.Color.fromRGB(0, 0, 255), 1f)
                 )
 
-                // SOUL 파티클 - 10% 확률로 생성
-                if (Random.nextDouble() < 0.03) {
-                    player.world.spawnParticle(
-                        org.bukkit.Particle.SOUL,
-                        player.location.x + x + randomOffsetX,
-                        player.location.y + y + 1.5 + randomOffsetY,
-                        player.location.z + z + randomOffsetZ,
-                        0,
-                    )
-                }
-
                 // 추가: 밝은 청록색 REDSTONE 파티클
                 player.world.spawnParticle(
                     org.bukkit.Particle.REDSTONE,

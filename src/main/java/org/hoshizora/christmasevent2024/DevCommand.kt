@@ -60,6 +60,10 @@ class DevCommand : CommandExecutor {
                             sender.inventory.addItem(ReflectiveStoneItemManager.createReflectiveStone())
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &f&l&kL &d크&9리&d스&9마&d스&f의 빛나는 &r&1&l반${ChatColor.of("#1f1fde")}&l사&9&석 &f&l&kL &r&f[Christmas 2024] has been given."))
                         }
+                        args[0].equals("ChristmasPvPWarpScroll", ignoreCase = true) -> {
+                            sender.inventory.addItem(ChristmasPvPWarpScrollItemManager.createScroll())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &d크&9리&d스&9마&d스 &r&fPvP &c&l워프 스크롤 &r&f[Christmas 2024] has been given."))
+                        }
                         else -> {
                             sender.sendMessage("${ChatColor.RED}Invalid argument!")
                         }
