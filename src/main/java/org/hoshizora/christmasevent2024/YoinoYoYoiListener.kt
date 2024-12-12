@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.FireworkExplodeEvent
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
@@ -38,6 +39,10 @@ class YoinoYoYoiListener(private val plugin: JavaPlugin) : Listener {
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
         val item = player.inventory.itemInMainHand
+
+        if (event.hand != EquipmentSlot.HAND) {
+            return
+        }
 
         if (isSimilarYoinoYoYoi(item) && (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK)) {
             event.isCancelled = true

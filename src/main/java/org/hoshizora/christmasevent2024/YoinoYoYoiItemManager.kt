@@ -28,10 +28,10 @@ object YoinoYoYoiItemManager {
             sword.itemMeta = it
         }
 
-        sword.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 3)
+        sword.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 4)
         sword.addUnsafeEnchantment(Enchantment.DURABILITY, 5)
         sword.addUnsafeEnchantment(Enchantment.MENDING, 1)
-        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8)
+        sword.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10)
         sword.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3)
 
         return sword

@@ -9,6 +9,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.block.Action
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitRunnable
@@ -128,11 +129,18 @@ class ReflectedChristmasDestroyerListener(private val plugin: JavaPlugin) : List
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
         val item = player.inventory.itemInMainHand
+
+        if (event.hand != EquipmentSlot.HAND) {
+            return
+        }
+
         if (isMirroredChristmasDestroyer(item) && (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK)) {
             event.isCancelled = true
+
             val playerId = player.uniqueId
             val currentTime = System.currentTimeMillis()
             val cooldownTime = if (isFullSetEquipped(player)) 20000L else 30000L
+
             if (cooldowns.containsKey(playerId)) {
                 val timeLeft = ((cooldowns[playerId]!! + cooldownTime) - currentTime) / 1000
                 if (timeLeft > 0) {

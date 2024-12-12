@@ -10,7 +10,7 @@ import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.inventory.EquipmentSlot
 import java.util.UUID
-
+    
 object MirroredHelmetItemManager {
     fun create(): ItemStack {
         val helmet = ItemStack(Material.LEATHER_HELMET)

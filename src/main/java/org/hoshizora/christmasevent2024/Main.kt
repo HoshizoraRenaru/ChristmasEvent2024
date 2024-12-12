@@ -31,6 +31,7 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(ChristmasPvPWarpScrollListener(this), this)
         server.pluginManager.registerEvents(PlayerPvPDropListener(this), this)
         server.pluginManager.registerEvents(PlayerInCombatListener(this), this)
+        server.pluginManager.registerEvents(ChristmasCoinDropListener(this), this)
 
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()

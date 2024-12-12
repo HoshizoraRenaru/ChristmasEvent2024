@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.util.Vector
 import kotlin.random.Random
 
@@ -25,6 +26,10 @@ class SpiritsOverseerListener(private val plugin: Main) : Listener {
     @EventHandler
     fun onPlayerUse(event: PlayerInteractEvent) {
         val player = event.player
+
+        if (event.hand != EquipmentSlot.HAND) {
+            return
+        }
 
         if ((event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK) &&
             player.inventory.itemInMainHand.isSimilar(SpiritsOverseerItemManager.createSoulOverseer())
@@ -165,7 +170,7 @@ class SpiritsOverseerListener(private val plugin: Main) : Listener {
 
     private fun spawnParticles(player: Player) {
         val radius = 3.0
-        for (angle in 0..360 step 10) { // 각도별로 파티클 생성
+        for (angle in 0..360 step 15) { // 각도별로 파티클 생성
             for (y in -1..1 step 1) { // 높이별로 파티클 생성
                 val radians = Math.toRadians(angle.toDouble())
                 val x = radius * Math.cos(radians)
@@ -175,7 +180,6 @@ class SpiritsOverseerListener(private val plugin: Main) : Listener {
                 val randomOffsetY = Random.nextDouble(-0.5, 0.5)
                 val randomOffsetZ = Random.nextDouble(-0.5, 0.5)
 
-                // 기본 파란색 REDSTONE 파티클
                 player.world.spawnParticle(
                     org.bukkit.Particle.REDSTONE,
                     player.location.x + x + randomOffsetX,
@@ -185,7 +189,6 @@ class SpiritsOverseerListener(private val plugin: Main) : Listener {
                     org.bukkit.Particle.DustOptions(org.bukkit.Color.fromRGB(0, 0, 255), 1f)
                 )
 
-                // 추가: 밝은 청록색 REDSTONE 파티클
                 player.world.spawnParticle(
                     org.bukkit.Particle.REDSTONE,
                     player.location.x + x + randomOffsetX,
@@ -195,7 +198,6 @@ class SpiritsOverseerListener(private val plugin: Main) : Listener {
                     org.bukkit.Particle.DustOptions(org.bukkit.Color.fromRGB(0, 255, 255), 1f)
                 )
 
-                // SNOWBALL 파티클 (각도와 무관하게 생성)
                 player.world.spawnParticle(
                     org.bukkit.Particle.SNOWBALL,
                     player.location.x + x + randomOffsetX,

@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
 import net.md_5.bungee.api.ChatColor
+import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 class SantasTradeSecretListener(private val plugin: JavaPlugin) : Listener {
@@ -52,10 +55,12 @@ class SantasTradeSecretListener(private val plugin: JavaPlugin) : Listener {
         player.world.playSound(player.location, Sound.ENTITY_ENDER_DRAGON_FLAP, 2.0f, 0.1f)
 
         val location = player.location.add(0.0, 1.0, 0.0)
-        player.world.spawnParticle(Particle.WAX_OFF, player.location.add(0.0, 1.0, 0.0), 60, 1.0, 1.0, 1.0, 0.5)
+        player.world.spawnParticle(Particle.WAX_OFF, location, 60, 1.0, 1.0, 1.0, 0.5)
         val color = Color.fromRGB(25, 1, 88)
         val dustOptions = Particle.DustOptions(color, 1.0f)
-        player.world.spawnParticle(Particle.REDSTONE, player.location.add(0.0, 1.0, 0.0), 100, 1.0, 1.0, 1.0, 0.5, dustOptions)
+        player.world.spawnParticle(Particle.REDSTONE, location, 100, 1.0, 1.0, 1.0, 0.5, dustOptions)
+
+        player.addPotionEffect(PotionEffect(PotionEffectType.SLOW, 60, 1))
     }
 
 
@@ -63,6 +68,11 @@ class SantasTradeSecretListener(private val plugin: JavaPlugin) : Listener {
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
         val item = player.inventory.itemInMainHand
+
+        if (event.hand != EquipmentSlot.HAND) {
+            return
+        }
+
         if (isSantasTradeSecrets(item)) {
             if (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK) {
                 event.isCancelled = true

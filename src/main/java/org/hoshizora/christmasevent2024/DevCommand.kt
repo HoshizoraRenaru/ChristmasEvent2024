@@ -64,6 +64,14 @@ class DevCommand : CommandExecutor {
                             sender.inventory.addItem(ChristmasPvPWarpScrollItemManager.createScroll())
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &d크&9리&d스&9마&d스 &r&fPvP &c&l워프 스크롤 &r&f[Christmas 2024] has been given."))
                         }
+                        args[0].equals("ChristmasRandomBoxFragment", ignoreCase = true) -> {
+                            sender.inventory.addItem(ChristmasRandomBoxFragmentItemManager.createFragment())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &c&l&kL &9&l크리스마스 &d&l랜덤박스 &f&l파편 &c&l&kL &r&f[Christmas 2024] has been given."))
+                        }
+                        args[0].equals("ChristmasCoin", ignoreCase = true) -> {
+                            sender.inventory.addItem(ChristmasCoinItemManager.createCoin())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &f&l&kL &b&l얼어붙은 크리스마스 코인 &f&l&kL &r&f[Christmas 2024] has been given."))
+                        }
                         else -> {
                             sender.sendMessage("${ChatColor.RED}Invalid argument!")
                         }
