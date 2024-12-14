@@ -72,6 +72,10 @@ class DevCommand : CommandExecutor {
                             sender.inventory.addItem(ChristmasCoinItemManager.createCoin())
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ &f&l&kL &b&l얼어붙은 크리스마스 코인 &f&l&kL &r&f[Christmas 2024] has been given."))
                         }
+                        args[0].equals("Newton", ignoreCase = true) -> {
+                            sender.inventory.addItem(NewtonItemManager.createNewton())
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "dev/ ${ChatColor.GOLD}${ChatColor.BOLD}${ChatColor.MAGIC}H ${ChatColor.of("#f7007f")}N${ChatColor.of("#d21b94")}e${ChatColor.of("#ae36a9")}w${ChatColor.of("#8951bf")}t${ChatColor.of("#656cd4")}o${ChatColor.of("#4087e9")}n ${ChatColor.of("#1ca2ff")}☄ ${ChatColor.GOLD}${ChatColor.BOLD}${ChatColor.MAGIC}S &r&f[Christmas 2024] has been given."))
+                        }
                         else -> {
                             sender.sendMessage("${ChatColor.RED}Invalid argument!")
                         }

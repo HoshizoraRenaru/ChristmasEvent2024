@@ -15,7 +15,7 @@ class ChristmasCoinDropListener(private val plugin: JavaPlugin) : Listener {
 
         if (entity.killer == null) return
 
-        if (Random.nextDouble() < 0.1) {
+        if (Random.nextDouble() < 0.05) {
             val christmasCoin: ItemStack = ChristmasCoinItemManager.createCoin()
             entity.world.dropItemNaturally(entity.location, christmasCoin)
         }
