@@ -105,7 +105,11 @@ class MirroredArmorListener(private val plugin: JavaPlugin) : Listener {
             val baseHealth = 20.0
             val newMaxHealth = baseHealth + amount
             attribute.baseValue = newMaxHealth
-            player.health = newMaxHealth
+
+            // 현재 체력을 최대 체력 범위 내로 제한 (강제 회복 방지)
+            if (player.health > 0 && player.health > newMaxHealth) {
+                player.health = newMaxHealth
+            }
         }
     }
 

@@ -46,7 +46,7 @@ class NewtonListener(private val plugin: JavaPlugin) : Listener {
         if (item == null || !item.hasItemMeta()) return false
         val meta = item.itemMeta ?: return false
         return meta.displayName == NewtonItemManager.createNewton().itemMeta?.displayName &&
-                item.type == NewtonItemManager.createNewton().type
+                meta.lore == NewtonItemManager.createNewton().itemMeta?.lore
     }
 
     private fun useNewtonSkill(player: Player) {
@@ -75,39 +75,30 @@ class NewtonListener(private val plugin: JavaPlugin) : Listener {
         val targetLoc = loc.clone()
         var blocked = false
 
-        // 정확히 90도로 바닥을 향하고 있는지 확인
-        if (direction.y > -0.95) { // 약간의 여유를 둠
-            for (i in 1..10) {
-                targetLoc.add(direction)
+        for (i in 1..10) {
+            targetLoc.add(direction)
 
-                // 1블록 이상 내려가는 경우 체크
-                if (targetLoc.y < loc.y - 2) {
-                    targetLoc.y = loc.y - 2 // 1블록 아래로 제한
-                    break
-                }
-
-                // 블록이 있는지 확인
-                if (!targetLoc.block.type.isAir && targetLoc.block.type.isSolid) {
-                    // 1블록 이하 높이에서 TP 가능한지 확인
-                    if (targetLoc.y - loc.y > -2) {
-                        targetLoc.y = targetLoc.block.y + 1.0 // 블록 위로 이동
-                    } else {
-                        targetLoc.subtract(direction) // 이전 위치로 되돌림
-                        blocked = true
-                    }
-                    break
-                }
+            if (targetLoc.block.type.isAir || !targetLoc.block.type.isSolid) {
+                continue
             }
 
-            player.teleport(targetLoc)
-            if (blocked) {
-                player.sendMessage("${ChatColor.RED}There's blocks in the way!")
-            }
-            player.world.playSound(player.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f)
-            player.world.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f)
-        } else {
-            return
+            targetLoc.subtract(direction)
+            blocked = true
+            break
         }
+
+        player.teleport(targetLoc)
+
+        if (blocked) {
+            player.sendMessage("${ChatColor.RED}There are blocks in the way!")
+        }
+
+        player.world.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1.0f)
+        player.world.playSound(player.location, Sound.ENTITY_ENDERMAN_TELEPORT, 1f, 1.0f)
+
+        // 기존 입자 로직 유지
+        player.world.spawnParticle(Particle.EXPLOSION_LARGE, loc, 3, 0.5, 0.5, 0.5, 0.0)
+        player.world.spawnParticle(Particle.EXPLOSION_LARGE, targetLoc, 3, 0.5, 0.5, 0.5, 0.0)
     }
 
     private fun applyAbsorptionShield(player: Player) {
@@ -152,9 +143,9 @@ class NewtonListener(private val plugin: JavaPlugin) : Listener {
         val startColor = Color.fromRGB(247, 0, 127) // #f7007f
         val endColor = Color.fromRGB(28, 162, 255) // #1ca2ff
 
-        val totalSteps = 50 // 그라데이션 단계를 정의
-        val radius = 0.3 // 원 반지름
-        val particleCount = 30 // 원에서 소환될 파티클 개수
+        val totalSteps = 50 // 그라데이션 단계
+        val radius = 0.3 // 반지름
+        val particleCount = 30 // 파티클 개수
 
         // 방향 벡터를 얻고 회전 행렬을 적용하기 위한 준비
         val direction = player.location.direction.normalize()
@@ -218,7 +209,8 @@ class NewtonListener(private val plugin: JavaPlugin) : Listener {
         val entities = player.getNearbyEntities(6.0, 6.0, 6.0)
             .filterIsInstance<Damageable>()
             .filter {
-                it !is Player && !listOf(
+                it is Player && it != player ||
+                        it !is Player && !listOf(
                     EntityType.ARMOR_STAND,
                     EntityType.ITEM_FRAME,
                     EntityType.MINECART,
@@ -233,19 +225,14 @@ class NewtonListener(private val plugin: JavaPlugin) : Listener {
         for (entity in entities) {
             val initialHealth = entity.health
 
-            // 플레이어와 몹 간의 거리 계산
             val distance = loc.distance(entity.location)
+            val damage = ((6 - distance) / 6 * (30 - 15) + 15).coerceIn(15.0, 30.0) // 최대 데미지를 30으로 설정
 
-            // 거리 비례 데미지 계산 (최소 10, 최대 25)
-            val damage = ((6 - distance) / 6 * (25 - 15) + 15).coerceIn(15.0, 25.0)
-
-            entity.damage(damage, player) // 계산된 데미지 적용
+            entity.damage(damage, player)
 
             totalDamage += damage
 
-            // 몹이 죽었는지 확인하고 소리 재생
             if (entity.health <= 0 && initialHealth > 0) {
-                // 죽은 몹의 위치에서 소리 재생
                 player.world.playSound(entity.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2.0f, 1.5f)
             }
         }
@@ -260,7 +247,6 @@ class NewtonListener(private val plugin: JavaPlugin) : Listener {
             )
         }
     }
-
 
     private fun canUseShield(player: Player): Boolean {
         val lastUsedTime = absorptionCooldowns[player.uniqueId] ?: 0L

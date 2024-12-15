@@ -33,7 +33,6 @@ object SantasTradeSecretItemManager {
             firework.itemMeta = it
         }
 
-        // 인챈트 추가 (장식용)
         firework.addUnsafeEnchantment(Enchantment.MENDING, 1)
         firework.addUnsafeEnchantment(Enchantment.DURABILITY, 3)
 
