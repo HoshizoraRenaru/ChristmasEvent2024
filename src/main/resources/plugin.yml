@@ -6,7 +6,7 @@ libraries:
   - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.23
 commands:
   dev:
-    description: "Get SoulOverseer[Christmas 20024] dev command."
+    description: "Get dev command."
     usage: "/dev SoulOverseer"
     permission: eternal.command.dev
   exprefresh:
@@ -17,3 +17,7 @@ commands:
     description: "Check your experience points"
     usage: "/checkexp"
     permission: ""
+  devmob:
+    description: "Get devmob command."
+    usage: "/dev SuiseiNightmare"
+    permission: eternal.command.devmob

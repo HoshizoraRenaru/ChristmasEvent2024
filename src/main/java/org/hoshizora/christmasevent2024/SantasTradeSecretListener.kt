@@ -90,7 +90,7 @@ class SantasTradeSecretListener(private val plugin: JavaPlugin) : Listener {
             }
 
             if (player.totalExperience < 20) {
-                player.sendMessage("${ChatColor.RED}Not enough experience!")
+                player.sendMessage("${ChatColor.RED}경험치가 부족합니다!")
                 return
             }
 

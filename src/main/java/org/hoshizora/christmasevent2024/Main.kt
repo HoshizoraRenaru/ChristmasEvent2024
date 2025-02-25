@@ -7,6 +7,7 @@ import org.hoshizora.christmasevent2024.mirroredarmor.MirroredArmorListener
 class Main : JavaPlugin(), CommandExecutor {
 
     private lateinit var experienceManager: ExperienceManager
+    private lateinit var mobManager: SuiseiNightmareMobManager
 
     override fun onEnable() {
         logger.info("星空れなる｜HoshizoraRenaru EternaL Plugin")
@@ -34,6 +35,9 @@ class Main : JavaPlugin(), CommandExecutor {
         server.pluginManager.registerEvents(ChristmasCoinDropListener(this), this)
         server.pluginManager.registerEvents(NewtonListener(this), this)
 
+        mobManager = SuiseiNightmareMobManager(this)
+        server.pluginManager.registerEvents(SuiseiNightmareListener(this, mobManager), this)
+
         server.scheduler.runTask(this, Runnable {
             experienceManager.saveAllPlayers()
         })
@@ -49,6 +53,9 @@ class Main : JavaPlugin(), CommandExecutor {
         getCommand("checkexp")?.apply {
             setExecutor(CheckExpCommand())
         }
+        getCommand("devmob")?.apply {
+            setExecutor(DevMobCommand(this@Main))
+        }
 
         PurpleIceRecipe(this).register()
         SugarBlockRecipe(this).register()
@@ -58,7 +65,7 @@ class Main : JavaPlugin(), CommandExecutor {
     }
 
     override fun onDisable() {
-        logger.info("Welcome to 2024 Christmas has gone!")
+        logger.info("Oh, no! 2024 Christmas has gone!")
         experienceManager.saveAllPlayers()
     }
 }
