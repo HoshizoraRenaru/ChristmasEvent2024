@@ -1,0 +1,455 @@
+import java.awt.*
+import java.awt.event.*
+import javax.swing.*
+import kotlin.concurrent.fixedRateTimer
+import java.util.*
+
+const val BLOCK_SIZE = 30
+const val BOARD_WIDTH = 10
+const val BOARD_HEIGHT = 20
+
+// --- Tetromino & 7-bag ---
+enum class TetrominoType(val color: Color) {
+    I(Color.CYAN), O(Color.YELLOW), T(Color.MAGENTA),
+    S(Color.GREEN), Z(Color.RED), J(Color.BLUE), L(Color.ORANGE)
+}
+
+data class Tetromino(
+    val type: TetrominoType,
+    var x: Int,
+    var y: Int,
+    var rotation: Int = 0
+) {
+    fun getShape(): Array<BooleanArray> {
+        val base = when (type) {
+            TetrominoType.I -> arrayOf(
+                booleanArrayOf(false, false, false, false),
+                booleanArrayOf(true, true, true, true),
+                booleanArrayOf(false, false, false, false),
+                booleanArrayOf(false, false, false, false)
+            )
+            TetrominoType.O -> arrayOf(
+                booleanArrayOf(true, true),
+                booleanArrayOf(true, true)
+            )
+            TetrominoType.T -> arrayOf(
+                booleanArrayOf(false, true, false),
+                booleanArrayOf(true, true, true),
+                booleanArrayOf(false, false, false)
+            )
+            TetrominoType.S -> arrayOf(
+                booleanArrayOf(false, true, true),
+                booleanArrayOf(true, true, false),
+                booleanArrayOf(false, false, false)
+            )
+            TetrominoType.Z -> arrayOf(
+                booleanArrayOf(true, true, false),
+                booleanArrayOf(false, true, true),
+                booleanArrayOf(false, false, false)
+            )
+            TetrominoType.J -> arrayOf(
+                booleanArrayOf(true, false, false),
+                booleanArrayOf(true, true, true),
+                booleanArrayOf(false, false, false)
+            )
+            TetrominoType.L -> arrayOf(
+                booleanArrayOf(false, false, true),
+                booleanArrayOf(true, true, true),
+                booleanArrayOf(false, false, false)
+            )
+        }
+        return rotateShape(base, rotation)
+    }
+
+    private fun rotateShape(shape: Array<BooleanArray>, times: Int): Array<BooleanArray> {
+        var arr = shape
+        repeat(times % 4) { arr = rotate90(arr) }
+        return arr
+    }
+
+    private fun rotate90(shape: Array<BooleanArray>): Array<BooleanArray> {
+        val h = shape.size
+        val w = shape[0].size
+        return Array(w) { x -> BooleanArray(h) { y -> shape[h - y - 1][x] } }
+    }
+}
+
+class SevenBag {
+    private val bag: Queue<TetrominoType> = LinkedList()
+    private val random = Random()
+    fun next(): TetrominoType {
+        if (bag.isEmpty()) refill()
+        return bag.poll()
+    }
+    private fun refill() {
+        val types = TetrominoType.values().toMutableList()
+        types.shuffle(random)
+        bag.addAll(types)
+    }
+}
+
+// --- SRS (간단화) ---
+object SRS {
+    private val kicks = listOf(
+        Pair(0, 0), Pair(-1, 0), Pair(-1, -1), Pair(0, 2), Pair(-1, 2)
+    )
+    fun getKick(type: TetrominoType, from: Int, to: Int): List<Pair<Int, Int>> = kicks
+}
+
+// --- Hold ---
+class HoldSystem {
+    var holdPiece: TetrominoType? = null
+    var canHold: Boolean = true
+}
+
+// --- Game Board ---
+class GameBoard(val width: Int = BOARD_WIDTH, val height: Int = BOARD_HEIGHT) {
+    val grid: Array<Array<Color?>> = Array(height) { Array(width) { null } }
+    fun canPlace(tetro: Tetromino, x: Int = tetro.x, y: Int = tetro.y, rot: Int = tetro.rotation): Boolean {
+        val shape = Tetromino(tetro.type, 0, 0, rot).getShape()
+        for (i in shape.indices) for (j in shape[i].indices)
+            if (shape[i][j]) {
+                val nx = x + j
+                val ny = y + i
+                if (nx !in 0 until width || ny !in 0 until height) return false
+                if (grid[ny][nx] != null) return false
+            }
+        return true
+    }
+    fun place(tetro: Tetromino) {
+        val shape = tetro.getShape()
+        for (i in shape.indices) for (j in shape[i].indices)
+            if (shape[i][j]) {
+                val nx = tetro.x + j
+                val ny = tetro.y + i
+                if (ny in 0 until height && nx in 0 until width)
+                    grid[ny][nx] = tetro.type.color
+            }
+    }
+    fun clearLines(): Int {
+        var lines = 0
+        for (y in height - 1 downTo 0) {
+            if (grid[y].all { it != null }) {
+                for (yy in y downTo 1) grid[yy] = grid[yy - 1].copyOf()
+                grid[0] = Array(width) { null }
+                lines++
+                y // check same line again
+            }
+        }
+        return lines
+    }
+}
+
+// --- Tetris Game ---
+class TetrisGame {
+    val board = GameBoard()
+    val bag = SevenBag()
+    val holdSystem = HoldSystem()
+    var currentTetromino: Tetromino? = null
+    var nextQueue: MutableList<TetrominoType> = mutableListOf()
+    var isGameOver = false
+    var score = 0
+
+    private var gravityTimer = 0L
+    private var lockDelay = 0L
+    private var lockPending = false
+
+    init {
+        repeat(3) { nextQueue.add(bag.next()) }
+        spawnTetromino()
+    }
+
+    fun spawnTetromino() {
+        currentTetromino = Tetromino(nextQueue.removeAt(0), 3, 0, 0)
+        nextQueue.add(bag.next())
+        holdSystem.canHold = true
+        if (!board.canPlace(currentTetromino!!)) isGameOver = true
+        gravityTimer = System.currentTimeMillis()
+        lockPending = false
+        lockDelay = 0L
+    }
+
+    fun hold() {
+        if (!holdSystem.canHold) return
+        val prev = holdSystem.holdPiece
+        holdSystem.holdPiece = currentTetromino!!.type
+        holdSystem.canHold = false
+        currentTetromino = if (prev == null) Tetromino(nextQueue.removeAt(0), 3, 0, 0)
+        else Tetromino(prev, 3, 0, 0)
+        if (nextQueue.size < 3) nextQueue.add(bag.next())
+        if (!board.canPlace(currentTetromino!!)) isGameOver = true
+        gravityTimer = System.currentTimeMillis()
+        lockPending = false
+        lockDelay = 0L
+    }
+
+    fun move(dx: Int) {
+        currentTetromino?.let {
+            if (board.canPlace(it, it.x + dx, it.y, it.rotation)) it.x += dx
+        }
+    }
+
+    fun softDrop() {
+        currentTetromino?.let {
+            if (board.canPlace(it, it.x, it.y + 1, it.rotation)) it.y += 1
+        }
+    }
+
+    fun hardDrop() {
+        currentTetromino?.let {
+            while (board.canPlace(it, it.x, it.y + 1, it.rotation)) it.y += 1
+            lockPiece()
+        }
+    }
+
+    fun rotateCW() = rotate(true)
+    fun rotateCCW() = rotate(false)
+
+    private fun rotate(clockwise: Boolean) {
+        currentTetromino?.let { tetro ->
+            val oldRot = tetro.rotation
+            val newRot = if (clockwise) (tetro.rotation + 1) % 4 else (tetro.rotation + 3) % 4
+            val kicks = SRS.getKick(tetro.type, oldRot, newRot)
+            for ((dx, dy) in kicks) {
+                if (board.canPlace(tetro, tetro.x + dx, tetro.y + dy, newRot)) {
+                    tetro.x += dx
+                    tetro.y += dy
+                    tetro.rotation = newRot
+                    break
+                }
+            }
+        }
+    }
+
+    fun getGhostY(): Int {
+        val tetro = currentTetromino ?: return 0
+        var ghostY = tetro.y
+        while (board.canPlace(tetro, tetro.x, ghostY + 1, tetro.rotation)) ghostY++
+        return ghostY
+    }
+
+    fun update() {
+        if (isGameOver) return
+        val now = System.currentTimeMillis()
+        if (!lockPending) {
+            if (now - gravityTimer > 500) {
+                gravityTimer = now
+                currentTetromino?.let {
+                    if (board.canPlace(it, it.x, it.y + 1, it.rotation)) it.y++
+                    else {
+                        lockPending = true
+                        lockDelay = now
+                    }
+                }
+            }
+        } else {
+            if (now - lockDelay > 500) {
+                lockPiece()
+            }
+        }
+    }
+
+    fun lockPiece() {
+        currentTetromino?.let {
+            board.place(it)
+            val lines = board.clearLines()
+            score += when (lines) {
+                1 -> 100
+                2 -> 300
+                3 -> 500
+                4 -> 800
+                else -> 0
+            }
+            spawnTetromino()
+        }
+    }
+}
+
+// --- Input Handler ---
+class InputHandler(val game: TetrisGame) {
+    private var leftPressed = false
+    private var rightPressed = false
+    private var downPressed = false
+    private var dasTimer = 0L
+    private var arrTimer = 0L
+    private var moveDir = 0
+
+    companion object {
+        const val DAS = 130L
+        const val ARR = 20L
+    }
+
+    fun keyPressed(e: KeyEvent) {
+        when (e.keyCode) {
+            KeyEvent.VK_LEFT -> {
+                if (!leftPressed) {
+                    game.move(-1)
+                    dasTimer = System.currentTimeMillis()
+                    arrTimer = System.currentTimeMillis()
+                    moveDir = -1
+                }
+                leftPressed = true
+            }
+            KeyEvent.VK_RIGHT -> {
+                if (!rightPressed) {
+                    game.move(1)
+                    dasTimer = System.currentTimeMillis()
+                    arrTimer = System.currentTimeMillis()
+                    moveDir = 1
+                }
+                rightPressed = true
+            }
+            KeyEvent.VK_DOWN -> downPressed = true
+            KeyEvent.VK_UP -> game.rotateCW()
+            KeyEvent.VK_Z -> game.rotateCCW()
+            KeyEvent.VK_SPACE -> game.hardDrop()
+            KeyEvent.VK_C -> game.hold()
+        }
+    }
+
+    fun keyReleased(e: KeyEvent) {
+        when (e.keyCode) {
+            KeyEvent.VK_LEFT -> {
+                leftPressed = false
+                if (rightPressed) {
+                    dasTimer = System.currentTimeMillis()
+                    arrTimer = System.currentTimeMillis()
+                    moveDir = 1
+                } else moveDir = 0
+            }
+            KeyEvent.VK_RIGHT -> {
+                rightPressed = false
+                if (leftPressed) {
+                    dasTimer = System.currentTimeMillis()
+                    arrTimer = System.currentTimeMillis()
+                    moveDir = -1
+                } else moveDir = 0
+            }
+            KeyEvent.VK_DOWN -> downPressed = false
+        }
+    }
+
+    fun update() {
+        val now = System.currentTimeMillis()
+        if (moveDir != 0) {
+            if (now - dasTimer > DAS) {
+                if (now - arrTimer > ARR) {
+                    game.move(moveDir)
+                    arrTimer = now
+                }
+            }
+        }
+        if (downPressed) game.softDrop()
+    }
+}
+
+// --- UI ---
+class TetrisPanel(val game: TetrisGame) : JPanel() {
+    override fun paintComponent(g: Graphics) {
+        super.paintComponent(g)
+        val g2d = g as Graphics2D
+
+        // Draw board
+        for (y in 0 until BOARD_HEIGHT) {
+            for (x in 0 until BOARD_WIDTH) {
+                val color = game.board.grid[y][x]
+                if (color != null) {
+                    g2d.color = color
+                    g2d.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
+                }
+                g2d.color = Color.DARK_GRAY
+                g2d.drawRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
+            }
+        }
+
+        // Draw ghost
+        game.currentTetromino?.let { tetro ->
+            val ghostY = game.getGhostY()
+            val shape = tetro.getShape()
+            g2d.color = Color(200, 200, 200, 80)
+            for (i in shape.indices) for (j in shape[i].indices)
+                if (shape[i][j])
+                    g2d.fillRect((tetro.x + j) * BLOCK_SIZE, (ghostY + i) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
+        }
+
+        // Draw current tetromino
+        game.currentTetromino?.let { tetro ->
+            val shape = tetro.getShape()
+            g2d.color = tetro.type.color
+            for (i in shape.indices) for (j in shape[i].indices)
+                if (shape[i][j])
+                    g2d.fillRect((tetro.x + j) * BLOCK_SIZE, (tetro.y + i) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
+        }
+
+        // Draw hold
+        g2d.color = Color.WHITE
+        g2d.drawString("HOLD", 10, 20)
+        game.holdSystem.holdPiece?.let { type ->
+            val shape = Tetromino(type, 0, 0, 0).getShape()
+            g2d.color = type.color
+            for (i in shape.indices) for (j in shape[i].indices)
+                if (shape[i][j])
+                    g2d.fillRect(10 + j * 15, 30 + i * 15, 15, 15)
+        }
+
+        // Draw next
+        g2d.color = Color.WHITE
+        g2d.drawString("NEXT", 340, 20)
+        for (n in 0..2) {
+            val type = game.nextQueue.getOrNull(n) ?: continue
+            val shape = Tetromino(type, 0, 0, 0).getShape()
+            g2d.color = type.color
+            for (i in shape.indices) for (j in shape[i].indices)
+                if (shape[i][j])
+                    g2d.fillRect(340 + j * 15, 30 + n * 50 + i * 15, 15, 15)
+        }
+
+        // Draw score
+        g2d.color = Color.WHITE
+        g2d.drawString("Score: ${game.score}", 150, 20)
+
+        // Game Over
+        if (game.isGameOver) {
+            g2d.color = Color(0, 0, 0, 180)
+            g2d.fillRect(0, 0, width, height)
+            g2d.color = Color.RED
+            g2d.font = Font("Arial", Font.BOLD, 36)
+            g2d.drawString("GAME OVER", 60, 300)
+        }
+    }
+}
+
+class TetrisFrame : JFrame("Kotlin Tetr.io") {
+    val game = TetrisGame()
+    val panel = TetrisPanel(game)
+    val input = InputHandler(game)
+
+    init {
+        defaultCloseOperation = EXIT_ON_CLOSE
+        contentPane = panel
+        preferredSize = Dimension(420, 640)
+        pack()
+        setLocationRelativeTo(null)
+        isResizable = false
+        isVisible = true
+        panel.isFocusable = true
+        panel.requestFocusInWindow()
+
+        addKeyListener(object : KeyAdapter() {
+            override fun keyPressed(e: KeyEvent) = input.keyPressed(e)
+            override fun keyReleased(e: KeyEvent) = input.keyReleased(e)
+        })
+
+        fixedRateTimer("game-loop", initialDelay = 0, period = 16) {
+            if (!game.isGameOver) {
+                input.update()
+                game.update()
+            }
+            SwingUtilities.invokeLater { panel.repaint() }
+        }
+    }
+}
+
+fun main() {
+    SwingUtilities.invokeLater { TetrisFrame() }
+}
