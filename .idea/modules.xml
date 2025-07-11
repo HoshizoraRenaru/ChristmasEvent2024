@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ChristmasEvent2024.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ChristmasEvent2024.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects.ChristmasEvent2024.main.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects.ChristmasEvent2024.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.ChristmasEvent2024.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.ChristmasEvent2024.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.hoshizora.ChristmasEvent2024.main.iml" filepath="$PROJECT_DIR$/.idea/modules/org.hoshizora.ChristmasEvent2024.main.iml" />
     </modules>
